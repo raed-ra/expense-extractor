@@ -4,4 +4,4 @@ PyPDF2
 flask_sqlalchemy
 python-dateutil
 python-dotenv
-pip install demjson3
+demjson3

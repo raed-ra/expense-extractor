@@ -2,125 +2,104 @@
 UWA Agile Web Development Project
 
 
-# 📚 Project Setup Guide
+# 📄 Expense Extractor App (Sample Project)
 
-Welcome! 👋\
-Follow these simple steps to set up and run the **PDF Bank Statement Parser** locally.
-
----
-
-## 🚀 Prerequisites
-
-1. **Python 3.8+** installed on your machine.
-2. **OpenAI account** with an **API key**.
-3. **Basic command-line skills** (terminal).
+This small Flask web app lets you upload a **PDF bank statement**, send it to **ChatGPT** for categorization, and review the transactions on a webpage.  
+(Everything runs locally on your machine. Your data and OpenAI key stay private.)
 
 ---
 
-## 📂 Project Folder Structure
+## 🚀 Setup Guide
+
+### 1. Clone the Repository
 
 ```bash
-/your-project-folder/
-│
-├── app.py
-├── models.py
-├── /templates/
-│    └── index.html
-├── /static/
-│    ├── upload.js
-│    ├── edit.js
-│    └── (optional) styles.css
-├── extracted_pdf_text_after.txt  # (auto-created)
-├── raw_chatgpt_response.txt      # (auto-created)
-├── saved_chatgpt_response.json   # (auto-created)
-├── skipped_items.json            # (auto-created)
-├── database.db                   # (auto-created SQLite DB)
-└── .env
+git clone https://github.com/yourusername/your-repo-name.git
+cd your-repo-name
 ```
 
----
-
-## 🛆 Step 1: Install Dependencies
-
-Open terminal in your project folder and run:
+### 2. Create and Activate a Virtual Environment (optional but recommended)
 
 ```bash
-pip install flask python-dotenv openai pypdf2 sqlalchemy demjson3 python-dateutil
+python3 -m venv venv
+source venv/bin/activate  # Mac/Linux
+venv\Scripts\activate     # Windows
 ```
 
----
+### 3. Install Dependencies
 
-## 🔑 Step 2: Setup your OpenAI API Key
-
-1. Go to [platform.openai.com](https://platform.openai.com/account/api-keys)
-2. Create a new API key if you don't have one.
-3. In your project folder, create a `.env` file:
+Install all required Python packages in one command:
 
 ```bash
-touch .env
+pip install -r requirements.txt
 ```
 
-4. Inside `.env`, paste this line (replace YOUR\_API\_KEY):
-
-```dotenv
-OPENAI_API_KEY=sk-XXXXXXXXXXXXXXXXXXXXXXXXXX
-```
-
-✅ Save and close.
+(This installs Flask, OpenAI, SQLAlchemy, PyPDF2, demjson3, and others.)
 
 ---
 
-## 🛠️ Step 3: Run the App
+## 🔑 Set Up Your OpenAI API Key
 
-In terminal, still inside the project folder, run:
+1. Create a `.env` file in the project root directory.
+2. Add this line inside `.env`:
+
+```env
+OPENAI_API_KEY=your_openai_api_key_here
+```
+
+You can get your API key from https://platform.openai.com/account/api-keys.
+
+⚠️ **Important:**  
+Each person must use **their own API key**.  
+The key is private and not shared with anyone else.
+
+---
+
+## 🖥️ How to Run the App
+
+Once setup is done:
+
+```bash
+flask run
+```
+
+or
 
 ```bash
 python app.py
 ```
 
-You should see:
-
-```bash
-✅ App started, initializing DB...
-✅ DB initialized, starting Flask...
- * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
-```
-
-Then open your browser and visit:
+Then open your browser and go to:
 
 ```
-http://localhost:5000
+http://127.0.0.1:5000/
 ```
 
----
-
-## 🧐 How it Works
-
-- Upload your bank statement PDF.
-- App extracts the raw text.
-- App sends the text to **ChatGPT** for **smart JSON extraction**.
-- A table appears where you can **edit, delete, add** entries.
-- When ready, click **Submit** to save all transactions into your **local SQLite database** (`database.db`).
+✅ Now you can upload a bank statement and try it!
 
 ---
 
-## 💡 Notes
+## 📚 Current Features
 
-- All extracted text and ChatGPT responses are saved locally (`.txt` and `.json` files) for inspection.
-- Negative amounts (`-`) or "Direct Debit" descriptions are automatically set to **Credit** type.
-- If the JSON from ChatGPT has minor errors, the app tries to **auto-clean** them.
-- You **must** have internet access while running (because it uses the ChatGPT API).
-
----
-
-## 🔥 Coming Features (optional ideas)
-
-- Search transactions by date.
-- Download/export transactions to CSV.
-- Visual dashboard (total spent, pie charts by category).
-- Authentication (login/logout).
+- Upload a PDF bank statement.
+- Extract raw text from PDF.
+- Send extracted text to OpenAI's GPT model.
+- Parse and clean ChatGPT's response into JSON.
+- Display transactions in a basic table.
 
 ---
 
-# ✅ You're ready to go!
+## 🔥 What’s Coming Next?
+
+I'm currently working on:
+- A new page where **you can edit** the transactions before saving.
+- Adding a **"New Entry"** button to manually add transactions.
+- **Delete** individual transaction rows easily.
+
+Once the basic edit/save features are done,  
+we will move to the **frontend polishing** and **reports/graphs dashboard**.
+
+---
+
+
 

@@ -1,112 +1,200 @@
 ```json
 [
-    {"date": "2021-10-20", "description": "CALTEX SUBIACO", "amount": 5.94, "type": "debit", "category": "transportation"},
-    {"date": "2021-10-20", "description": "BUNNINGS 309000", "amount": 62.97, "type": "debit", "category": "home improvement"},
-    {"date": "2021-10-21", "description": "ENEX HI THAI", "amount": 6.00, "type": "debit", "category": "dining"},
-    {"date": "2021-10-21", "description": "VENUES WEST", "amount": 17.80, "type": "debit", "category": "entertainment"},
-    {"date": "2021-10-21", "description": "HLAF PTY LTD", "amount": 14.00, "type": "debit", "category": "services"},
-    {"date": "2021-10-22", "description": "CHEZ JEAN - CLAUDE B", "amount": 36.30, "type": "debit", "category": "dining"},
-    {"date": "2021-10-22", "description": "BOUCLA CAFE&GIFTWARE", "amount": 24.00, "type": "debit", "category": "dining"},
-    {"date": "2021-10-23", "description": "BUNNINGS 309000", "amount": 9.22, "type": "debit", "category": "home improvement"},
-    {"date": "2021-10-23", "description": "COLES 0270", "amount": 14.40, "type": "debit", "category": "groceries"},
-    {"date": "2021-10-23", "description": "WOOLWORTHS 4392", "amount": 32.81, "type": "debit", "category": "groceries"},
-    {"date": "2021-10-23", "description": "Whisk Creamery", "amount": 17.70, "type": "debit", "category": "dining"},
-    {"date": "2021-10-23", "description": "Whisk Creamery", "amount": 14.20, "type": "debit", "category": "dining"},
-    {"date": "2021-10-23", "description": "GOLDEN CHOICE SUBIAC", "amount": 104.92, "type": "debit", "category": "groceries"},
-    {"date": "2021-10-23", "description": "BUNNINGS 309000", "amount": 28.00, "type": "credit", "category": "home improvement"},
-    {"date": "2021-10-24", "description": "FARMER JACKS SUBIACO", "amount": 19.99, "type": "debit", "category": "groceries"},
-    {"date": "2021-10-24", "description": "CALTEX SUBIACO", "amount": 29.00, "type": "debit", "category": "transportation"},
-    {"date": "2021-10-24", "description": "IINET BATCH", "amount": 89.99, "type": "debit", "category": "utilities"},
-    {"date": "2021-10-25", "description": "WOOLWORTHS 4301", "amount": 6.03, "type": "debit", "category": "groceries"},
-    {"date": "2021-10-26", "description": "Rokeby GP", "amount": 105.00, "type": "debit", "category": "healthcare"},
-    {"date": "2021-10-26", "description": "WOOLWORTHS 4392", "amount": 14.60, "type": "debit", "category": "groceries"},
-    {"date": "2021-10-26", "description": "COLES 0270", "amount": 50.83, "type": "debit", "category": "groceries"},
-    {"date": "2021-10-26", "description": "RAC MEMBERSHIP", "amount": 270.00, "type": "debit", "category": "membership"},
-    {"date": "2021-10-27", "description": "BROADWAY IGA", "amount": 4.00, "type": "debit", "category": "groceries"},
-    {"date": "2021-10-27", "description": "WOOLWORTHS 4301", "amount": 16.10, "type": "debit", "category": "groceries"},
-    {"date": "2021-10-27", "description": "VARSITY BAR", "amount": 44.00, "type": "debit", "category": "dining"},
-    {"date": "2021-10-28", "description": "APPLE.COM/BILL", "amount": 4.49, "type": "debit", "category": "digital services"},
-    {"date": "2021-10-28", "description": "APPLE.COM/BILL", "amount": 4.49, "type": "debit", "category": "digital services"},
-    {"date": "2021-10-28", "description": "VENUES WEST", "amount": 17.80, "type": "debit", "category": "entertainment"},
-    {"date": "2021-10-29", "description": "RNB William St", "amount": 12.05, "type": "debit", "category": "dining"},
-    {"date": "2021-10-29", "description": "GOOGLE*YOUTUBEPREMIUM", "amount": 22.99, "type": "debit", "category": "digital services"},
-    {"date": "2021-10-29", "description": "PERTH AIRPORT PTY LTD", "amount": 15.14, "type": "debit", "category": "transportation"},
-    {"date": "2021-10-29", "description": "HELLO HARRY SUBIACO", "amount": 43.00, "type": "debit", "category": "dining"},
-    {"date": "2021-10-30", "description": "Whisk Creamery", "amount": 17.70, "type": "debit", "category": "dining"},
-    {"date": "2021-10-30", "description": "Whisk Creamery", "amount": 14.20, "type": "debit", "category": "dining"},
-    {"date": "2021-10-30", "description": "WOOLWORTHS 4392", "amount": 26.47, "type": "debit", "category": "groceries"},
-    {"date": "2021-10-31", "description": "WOOLWORTHS 4392", "amount": 8.50, "type": "debit", "category": "groceries"},
-    {"date": "2021-11-01", "description": "DIGITALOCEAN.COM", "amount": 8.80, "type": "debit", "category": "digital services"},
-    {"date": "2021-11-01", "description": "WOOLWORTHS 4301", "amount": 15.17, "type": "debit", "category": "groceries"},
-    {"date": "2021-11-01", "description": "COLES 0299", "amount": 154.03, "type": "debit", "category": "groceries"},
-    {"date": "2021-11-02", "description": "SUSHIA (ENEX)", "amount": 8.90, "type": "debit", "category": "dining"},
-    {"date": "2021-11-02", "description": "WOOLWORTHS 4301", "amount": 0.62, "type": "debit", "category": "groceries"},
-    {"date": "2021-11-02", "description": "NETFLIX.COM", "amount": 23.12, "type": "debit", "category": "digital services"},
-    {"date": "2021-11-02", "description": "UBER *TRIP", "amount": 11.07, "type": "debit", "category": "transportation"},
-    {"date": "2021-11-02", "description": "CALTEX SUBIACO", "amount": 62.96, "type": "debit", "category": "transportation"},
-    {"date": "2021-11-02", "description": "CALTEX SUBIACO", "amount": 110.90, "type": "debit", "category": "transportation"},
-    {"date": "2021-11-03", "description": "MEDECINS SANS FRONTIER", "amount": 75.00, "type": "debit", "category": "charity"},
-    {"date": "2021-11-04", "description": "COLES 0270", "amount": 3.00, "type": "debit", "category": "groceries"},
-    {"date": "2021-11-04", "description": "SQ *TELEGRAM COFFEE F", "amount": 8.50, "type": "debit", "category": "dining"},
-    {"date": "2021-11-04", "description": "VENUES WEST", "amount": 17.80, "type": "debit", "category": "entertainment"},
-    {"date": "2021-11-04", "description": "APPLE.COM/BILL", "amount": 14.99, "type": "debit", "category": "digital services"},
-    {"date": "2021-11-04", "description": "GOLDEN CHOICE SUBIAC", "amount": 50.77, "type": "debit", "category": "groceries"},
-    {"date": "2021-11-04", "description": "COLES 0270", "amount": 151.50, "type": "debit", "category": "groceries"},
-    {"date": "2021-11-04", "description": "APPLE.COM/BILL", "amount": 12.99, "type": "debit", "category": "digital services"},
-    {"date": "2021-11-05", "description": "EQUIFAX CONSUMER", "amount": 24.49, "type": "debit", "category": "services"},
-    {"date": "2021-11-05", "description": "CHEZ JEAN - CLAUDE B", "amount": 24.00, "type": "debit", "category": "dining"},
-    {"date": "2021-11-06", "description": "Whisk Creamery", "amount": 32.20, "type": "debit", "category": "dining"},
-    {"date": "2021-11-06", "description": "SANA CO PTY LTD", "amount": 75.57, "type": "debit", "category": "services"},
-    {"date": "2021-11-08", "description": "COLES 0270", "amount": 33.43, "type": "debit", "category": "groceries"},
-    {"date": "2021-11-08", "description": "AMNESTY INTERNATIONAL", "amount": 27.00, "type": "debit", "category": "charity"},
-    {"date": "2021-11-08", "description": "OFFICEWORKS 0602", "amount": 62.27, "type": "debit", "category": "office supplies"},
-    {"date": "2021-11-10", "description": "CARD PAYMENT FEE ATO", "amount": 5.88, "type": "debit", "category": "fees"},
-    {"date": "2021-11-10", "description": "ATO PAYMENT", "amount": 763.46, "type": "debit", "category": "tax"},
-    {"date": "2021-11-10", "description": "POSH NOSH CAFE", "amount": 12.00, "type": "debit", "category": "dining"},
-    {"date": "2021-11-11", "description": "Vodafone Australia", "amount": 92.59, "type": "debit", "category": "utilities"},
-    {"date": "2021-11-11", "description": "Uniqlo Perth", "amount": 89.50, "type": "debit", "category": "clothing"},
-    {"date": "2021-11-11", "description": "Webster Health Care J", "amount": 290.00, "type": "debit", "category": "healthcare"},
-    {"date": "2021-11-11", "description": "Rokeby GP", "amount": 105.00, "type": "debit", "category": "healthcare"},
-    {"date": "2021-11-11", "description": "VENUES WEST", "amount": 17.80, "type": "debit", "category": "entertainment"},
-    {"date": "2021-11-11", "description": "UBER *TRIP", "amount": 16.82, "type": "debit", "category": "transportation"},
-    {"date": "2021-11-11", "description": "UBER *TRIP", "amount": 11.18, "type": "debit", "category": "transportation"},
-    {"date": "2021-11-11", "description": "APPLE.COM/BILL", "amount": 14.99, "type": "debit", "category": "digital services"},
-    {"date": "2021-11-11", "description": "UBER* TRIP", "amount": 17.06, "type": "debit", "category": "transportation"},
-    {"date": "2021-11-12", "description": "SKYPE.COM/GO/BILL", "amount": 9.90, "type": "debit", "category": "digital services"},
-    {"date": "2021-11-12", "description": "CHEZ JEAN - CLAUDE B", "amount": 29.00, "type": "debit", "category": "dining"},
-    {"date": "2021-11-12", "description": "APPLE.COM/BILL", "amount": 7.99, "type": "debit", "category": "digital services"},
-    {"date": "2021-11-12", "description": "Shesh Besh Shisha Bar", "amount": 88.00, "type": "debit", "category": "dining"},
-    {"date": "2021-11-13", "description": "VENUESWEST - HBF STA", "amount": 3.50, "type": "debit", "category": "entertainment"},
-    {"date": "2021-11-13", "description": "VENUESWEST - HBF STA", "amount": 10.00, "type": "debit", "category": "entertainment"},
-    {"date": "2021-11-13", "description": "PHARM777ROKEBYRD", "amount": 15.95, "type": "debit", "category": "healthcare"},
-    {"date": "2021-11-14", "description": "SHENTON PARK IGA", "amount": 3.98, "type": "debit", "category": "groceries"},
-    {"date": "2021-11-14", "description": "WOOLWORTHS 4392", "amount": 15.66, "type": "debit", "category": "groceries"},
-    {"date": "2021-11-14", "description": "KRISPY KREME HAY ST", "amount": 30.20, "type": "debit", "category": "dining"},
-    {"date": "2021-11-14", "description": "FARMER JACKS SUBIACO", "amount": 53.65, "type": "debit", "category": "groceries"},
-    {"date": "2021-11-14", "description": "GOLDEN CHOICE SUBIAC", "amount": 54.58, "type": "debit", "category": "groceries"},
-    {"date": "2021-11-14", "description": "COLES 0270", "amount": 92.32, "type": "debit", "category": "groceries"},
-    {"date": "2021-11-15", "description": "GJCB PTY LTD", "amount": 15.00, "type": "debit", "category": "services"},
-    {"date": "2021-11-15", "description": "CHEZ JEAN - CLAUDE B", "amount": 18.90, "type": "debit", "category": "dining"},
-    {"date": "2021-11-15", "description": "PAYPAL *MUSICJUNCTI", "amount": 57.00, "type": "debit", "category": "entertainment"},
-    {"date": "2021-11-16", "description": "Rokeby GP", "amount": 95.00, "type": "debit", "category": "healthcare"},
-    {"date": "2021-11-16", "description": "APPLE.COM/BILL", "amount": 7.99, "type": "debit", "category": "digital services"},
-    {"date": "2021-11-16", "description": "BUPA HI P T PHI", "amount": 10.57, "type": "debit", "category": "healthcare"},
-    {"date": "2021-11-16", "description": "WOOLWORTHS 4301", "amount": 16.50, "type": "debit", "category": "groceries"},
-    {"date": "2021-11-17", "description": "UBER *TRIP", "amount": 10.12, "type": "debit", "category": "transportation"},
-    {"date": "2021-11-17", "description": "HLAF PTY LTD", "amount": 10.50, "type": "debit", "category": "services"},
-    {"date": "2021-11-17", "description": "Rokeby GP", "amount": 70.00, "type": "debit", "category": "healthcare"},
-    {"date": "2021-11-17", "description": "Rokeby GP", "amount": 70.00, "type": "credit", "category": "healthcare"},
-    {"date": "2021-11-18", "description": "VENUES WEST", "amount": 17.80, "type": "debit", "category": "entertainment"},
-    {"date": "2021-11-18", "description": "APPLE.COM/BILL", "amount": 11.99, "type": "debit", "category": "digital services"},
-    {"date": "2021-11-18", "description": "COLES 0270", "amount": 90.55, "type": "debit", "category": "groceries"},
-    {"date": "2021-11-19", "description": "CHEZ JEAN - CLAUDE B", "amount": 32.80, "type": "debit", "category": "dining"},
-    {"date": "2021-11-19", "description": "HLAF PTY LTD", "amount": 15.00, "type": "debit", "category": "services"},
-    {"date": "2021-11-20", "description": "ROSALIE PRIMARY SCHOOL", "amount": 5.00, "type": "debit", "category": "education"},
-    {"date": "2021-11-20", "description": "ROSALIE PRIMARY SCHOOL", "amount": 5.00, "type": "debit", "category": "education"},
-    {"date": "2021-11-20", "description": "FARMER JACKS SUBIACO", "amount": 25.98, "type": "debit", "category": "groceries"},
-    {"date": "2021-11-20", "description": "ROSALIE PRIMARY SCHOOL", "amount": 35.00, "type": "debit", "category": "education"},
-    {"date": "2021-11-20", "description": "ROSALIE PRIMARY SCHOOL", "amount": 90.00, "type": "debit", "category": "education"},
-    {"date": "2021-11-20", "description": "ROSALIE PRIMARY SCHOOL", "amount": 115.00, "type": "debit", "category": "education"},
-    {"date": "2021-11-21", "description": "EZI*Exaero Pty Ltd (K", "amount": 284.31, "type": "debit", "category": "services"}
+    {
+        "date": "2024-08-05",
+        "description": "Food and expenses",
+        "amount": 180.00,
+        "type": "debit",
+        "category": "Food"
+    },
+    {
+        "date": "2024-08-06",
+        "description": "High Q tutoring",
+        "amount": 400.00,
+        "type": "debit",
+        "category": "Education"
+    },
+    {
+        "date": "2024-08-06",
+        "description": "EFTPOS SPRIGGY",
+        "amount": 50.00,
+        "type": "debit",
+        "category": "Miscellaneous"
+    },
+    {
+        "date": "2024-08-07",
+        "description": "Credit card payment",
+        "amount": 5000.00,
+        "type": "debit",
+        "category": "Credit Card Payment"
+    },
+    {
+        "date": "2024-08-07",
+        "description": "BPAY to City of SU Rate Notice",
+        "amount": 2571.56,
+        "type": "debit",
+        "category": "Utilities"
+    },
+    {
+        "date": "2024-08-07",
+        "description": "BPAY to Tax Office Tax payment for study",
+        "amount": 1118.00,
+        "type": "debit",
+        "category": "Taxes"
+    },
+    {
+        "date": "2024-08-07",
+        "description": "BPAY to CSA Child support",
+        "amount": 1056.75,
+        "type": "debit",
+        "category": "Child Support"
+    },
+    {
+        "date": "2024-08-07",
+        "description": "VISA AUD 100 ST GEORGES TCE PERTH",
+        "amount": 500.00,
+        "type": "debit",
+        "category": "Miscellaneous"
+    },
+    {
+        "date": "2024-08-12",
+        "description": "Loan Payment",
+        "amount": 2461.80,
+        "type": "debit",
+        "category": "Loan Payment"
+    },
+    {
+        "date": "2024-08-12",
+        "description": "Food and expenses",
+        "amount": 180.00,
+        "type": "debit",
+        "category": "Food"
+    },
+    {
+        "date": "2024-08-13",
+        "description": "VISA AUD 100 ST GEORGES TCE PERTH",
+        "amount": 150.00,
+        "type": "debit",
+        "category": "Miscellaneous"
+    },
+    {
+        "date": "2024-08-13",
+        "description": "EFTPOS SPRIGGY",
+        "amount": 50.00,
+        "type": "debit",
+        "category": "Miscellaneous"
+    },
+    {
+        "date": "2024-08-15",
+        "description": "Transfer to HSBC Credit Card",
+        "amount": 900.00,
+        "type": "debit",
+        "category": "Credit Card Payment"
+    },
+    {
+        "date": "2024-08-16",
+        "description": "HSBC CREDITCARDS",
+        "amount": 905.65,
+        "type": "debit",
+        "category": "Credit Card Payment"
+    },
+    {
+        "date": "2024-08-19",
+        "description": "Food and expenses",
+        "amount": 180.00,
+        "type": "debit",
+        "category": "Food"
+    },
+    {
+        "date": "2024-08-20",
+        "description": "CSA child support",
+        "amount": 1057.00,
+        "type": "debit",
+        "category": "Child Support"
+    },
+    {
+        "date": "2024-08-20",
+        "description": "VISA AUD 100 ST GEORGES TCE PERTH",
+        "amount": 500.00,
+        "type": "debit",
+        "category": "Miscellaneous"
+    },
+    {
+        "date": "2024-08-20",
+        "description": "EFTPOS SPRIGGY",
+        "amount": 50.00,
+        "type": "debit",
+        "category": "Miscellaneous"
+    },
+    {
+        "date": "2024-08-21",
+        "description": "My Persian Learning",
+        "amount": 27.00,
+        "type": "debit",
+        "category": "Education"
+    },
+    {
+        "date": "2024-08-26",
+        "description": "Transfer to HSBC Credit Card",
+        "amount": 9000.00,
+        "type": "debit",
+        "category": "Credit Card Payment"
+    },
+    {
+        "date": "2024-08-24",
+        "description": "VISA AUD 100 ST GEORGES TCE PERTH",
+        "amount": 500.00,
+        "type": "debit",
+        "category": "Miscellaneous"
+    },
+    {
+        "date": "2024-08-24",
+        "description": "WATER CORP",
+        "amount": 310.75,
+        "type": "debit",
+        "category": "Utilities"
+    },
+    {
+        "date": "2024-08-24",
+        "description": "EFTPOS COLES SUBIACO",
+        "amount": 204.00,
+        "type": "debit",
+        "category": "Groceries"
+    },
+    {
+        "date": "2024-08-24",
+        "description": "Food and expenses",
+        "amount": 180.00,
+        "type": "debit",
+        "category": "Food"
+    },
+    {
+        "date": "2024-08-27",
+        "description": "EFTPOS COLES SUBIACO",
+        "amount": 265.90,
+        "type": "debit",
+        "category": "Groceries"
+    },
+    {
+        "date": "2024-08-27",
+        "description": "Dinner",
+        "amount": 40.00,
+        "type": "debit",
+        "category": "Dining"
+    },
+    {
+        "date": "2024-08-28",
+        "description": "EFTPOS VISA AUD SPRIGGY SYDNEY",
+        "amount": 50.00,
+        "type": "debit",
+        "category": "Miscellaneous"
+    },
+    {
+        "date": "2024-08-29",
+        "description": "VISA AUD 100 ST GEORGES TCE PERTH",
+        "amount": 500.00,
+        "type": "debit",
+        "category": "Miscellaneous"
+    }
 ]
 ```

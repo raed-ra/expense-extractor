@@ -1,11 +1,7 @@
-# CITS5505_Group48
-UWA Agile Web Development Project
-
-
 # 📄 Expense Extractor App (Sample Project)
 
-This small Flask web app lets you upload a **PDF bank statement**, send it to **ChatGPT** for categorization, and review the transactions on a webpage.  
-(Everything runs locally on your machine. Your data and OpenAI key stay private.)
+This small Flask web app lets you upload a **PDF bank statement**, send it to **ChatGPT** for categorization, and review and edit the transactions before saving them to a local database.  
+(Everything runs **locally**. Your **bank data** and **OpenAI key** stay **private**.)
 
 ---
 
@@ -18,6 +14,9 @@ git clone https://github.com/yourusername/your-repo-name.git
 cd your-repo-name
 ```
 
+(If you're on a different branch, don't forget to check it out:  
+`git checkout your-branch-name`)
+
 ### 2. Create and Activate a Virtual Environment (optional but recommended)
 
 ```bash
@@ -28,78 +27,126 @@ venv\Scripts\activate     # Windows
 
 ### 3. Install Dependencies
 
-Install all required Python packages in one command:
-
 ```bash
 pip install -r requirements.txt
 ```
 
-(This installs Flask, OpenAI, SQLAlchemy, PyPDF2, demjson3, and others.)
+(This installs Flask, SQLAlchemy, OpenAI, PyPDF2, demjson3, python-dotenv, etc.)
 
 ---
 
 ## 🔑 Set Up Your OpenAI API Key
 
-1. Create a `.env` file in the project root directory.
-2. Add this line inside `.env`:
+1. Create a `.env` file in the project root.
+2. Inside `.env`, add:
 
 ```env
 OPENAI_API_KEY=your_openai_api_key_here
 ```
 
-You can get your API key from https://platform.openai.com/account/api-keys.
+You can create an API key at: [OpenAI Platform](https://platform.openai.com/account/api-keys)
 
 ⚠️ **Important:**  
-Each person must use **their own API key**.  
-The key is private and not shared with anyone else.
+Everyone uses their own API key!  
+The key remains private and is never stored on the server.
 
 ---
 
 ## 🖥️ How to Run the App
 
-Once setup is done:
-
 ```bash
 flask run
 ```
-
 or
 
 ```bash
 python app.py
 ```
 
-Then open your browser and go to:
+Then open your browser:
 
 ```
 http://127.0.0.1:5000/
 ```
 
-✅ Now you can upload a bank statement and try it!
+✅ You should see the homepage where you can **choose to upload** a bank statement.
 
 ---
 
 ## 📚 Current Features
 
 - Upload a PDF bank statement.
-- Extract raw text from PDF.
-- Send extracted text to OpenAI's GPT model.
-- Parse and clean ChatGPT's response into JSON.
-- Display transactions in a basic table.
+- Extract raw text using **PyPDF2**.
+- Send extracted text to **OpenAI GPT model**.
+- Categorize transactions using ChatGPT.
+- Edit transactions manually before saving (Add ➕, Delete 🗑️, Update ✏️).
+- Save edited transactions into an **SQLite database** (via SQLAlchemy).
+- Temporary files like parsed data are **cleared automatically** after saving.
 
 ---
 
-## 🔥 What’s Coming Next?
+## 🛤️ App Flow Overview
 
-I'm currently working on:
-- A new page where **you can edit** the transactions before saving.
-- Adding a **"New Entry"** button to manually add transactions.
-- **Delete** individual transaction rows easily.
-
-Once the basic edit/save features are done,  
-we will move to the **frontend polishing** and **reports/graphs dashboard**.
+| Step | What Happens | Frontend Page | Backend Action |
+|:----:|:-------------|:-------------:|:--------------:|
+| 1 | Visit homepage | `/` | Choose to upload |
+| 2 | Upload PDF | `/upload` | Extract + Send to GPT |
+| 3 | Review & Edit | `/edit-upload` | Modify/Add/Delete transactions |
+| 4 | Submit | (AJAX POST) | Save to database |
 
 ---
 
+## 🔥 What's Coming Next?
 
+- **Manage Transactions** page:  
+  View, edit, delete existing saved transactions.
+- **Reports / Analytics** dashboard:  
+  Monthly summaries, category spendings.
+- **Better Mobile View** with responsive Bootstrap.
+- **Authentication (optional phase):**  
+  Login system for users (optional bonus later).
+
+---
+
+## 📂 Folder Structure (Important)
+
+```bash
+app.py
+models.py
+/helpers
+    parse.py
+    prompt.py
+/services
+    chatgpt_service.py
+    pdf_service.py
+/routes
+    main.py
+/templates
+    index.html
+    upload.html
+    edit_upload.html
+/static/js
+    index.js
+    edit.js
+uploads/  (uploaded PDFs stored temporarily)
+database.db (SQLite)
+parsed_expenses.json (temporary parsed data)
+parsed_filename.txt (temporary uploaded filename)
+```
+
+---
+
+## ⚙️ Development Branch
+
+This project has multiple branches:
+
+- `main`: Stable version
+- `suggestion-project-rr` (example): Experimental / upgraded version (use for testing!)
+
+✅ Always pull or push to the correct branch!
+
+---
+
+# ✨ Enjoy!  
+If you have questions, open an issue or contact the repo maintainer 🚀
 

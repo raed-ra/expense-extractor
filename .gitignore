@@ -172,3 +172,10 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+
+saved_chatgpt_response.json
+extracted_pdf_text.txt
+uploads/
+*.pyc
+*.sqlite3

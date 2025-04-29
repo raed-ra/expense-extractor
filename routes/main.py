@@ -138,4 +138,130 @@ def edit_upload():
 
         return render_template('edit_upload.html', expenses=expenses)
     
+@main_bp.route('/manage-transactions', methods=['GET', 'POST'])
+def manage_transactions():
+    if request.method == 'POST':
+        try:
+            data = request.get_json()
+            new_items = 0
+            updated_items = 0
+            deleted_items = 0
 
+            # DELETE
+            for id_str in data.get('deleted', []):
+                expense = Expense.query.get(int(id_str))
+                if expense:
+                    db.session.delete(expense)
+                    deleted_items += 1
+
+            # UPDATE
+            for item in data.get('updated', []):
+                expense = Expense.query.get(int(item['id']))
+                if expense:
+                    expense.description = item['description']
+                    expense.amount = parse_amount(item['amount'])
+                    expense.category = item.get('category', 'Uncategorized')
+                    expense.date = date_parser.parse(item['date']).date() if item.get('date') else None
+                    expense.type = item['type']
+                    updated_items += 1
+
+            # INSERT
+            for item in data.get('new', []):
+                amount = parse_amount(item.get('amount'))
+                if amount is None or not item.get('description'):
+                    continue
+                try:
+                    parsed_date = date_parser.parse(item['date']).date() if item.get('date') else None
+                except Exception:
+                    parsed_date = None
+                new_expense = Expense(
+                    description=item['description'],
+                    amount=amount,
+                    category=item.get('category', 'Uncategorized'),
+                    date=parsed_date,
+                    type=item['type']
+                )
+                db.session.add(new_expense)
+                new_items += 1
+
+            db.session.commit()
+            return jsonify({
+                "status": "success",
+                "message": f"Saved! {new_items} new, {updated_items} updated, {deleted_items} deleted."
+            }), 200
+
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
+
+    else:  # GET
+        from_date = request.args.get("from")
+        to_date = request.args.get("to")
+        expenses = []
+
+        if from_date and to_date:
+            try:
+                start = date_parser.parse(from_date).date()
+                end = date_parser.parse(to_date).date()
+                expenses = Expense.query.filter(Expense.date.between(start, end)).all()
+            except Exception:
+                pass  # fallback: show nothing
+
+        # Query all dates for calendar highlighting
+        all_dates = db.session.query(Expense.date).distinct().all()
+        highlighted_dates = [d[0].isoformat() for d in all_dates if d[0] is not None]
+        
+        # Fetch distinct categories
+        category_results = db.session.query(Expense.category.distinct()).all()
+        categories = sorted([c[0] for c in category_results if c[0]])
+
+
+        return render_template('manage_transactions.html', expenses=expenses, transaction_dates=highlighted_dates, categories=categories, submit_url='/manage-transactions', mode='update')
+
+
+@main_bp.route('/reporting', methods=['GET', 'POST'])
+def reporting():
+    from_date = request.args.get('from')
+    to_date = request.args.get('to')
+    category = request.args.get('category')
+    txn_type = request.args.get('type')
+    amount_filter = request.args.get('amount_filter')
+    description_keyword = request.args.get('description')
+
+    query = Expense.query
+
+    if from_date and to_date:
+        try:
+            start = date_parser.parse(from_date).date()
+            end = date_parser.parse(to_date).date()
+            query = query.filter(Expense.date.between(start, end))
+        except Exception:
+            pass
+
+    if category and category != '__all__':
+        query = query.filter(Expense.category == category)
+
+    if txn_type and txn_type != '__all__':
+        query = query.filter(Expense.type == txn_type)
+
+    if amount_filter:
+        try:
+            value = float(amount_filter)
+            query = query.filter(Expense.amount >= value)
+        except Exception:
+            pass
+
+    if description_keyword:
+        query = query.filter(Expense.description.ilike(f"%{description_keyword}%"))
+
+    expenses = query.all()
+
+    report_data = [{'date': e.date.isoformat(), 'amount': e.amount} for e in expenses if e.date and e.amount]
+
+    category_results = db.session.query(Expense.category.distinct()).all()
+    categories = sorted([c[0] for c in category_results if c[0]])
+    
+    # Query all dates for calendar highlighting
+    all_dates = db.session.query(Expense.date).distinct().all()
+    highlighted_dates = [d[0].isoformat() for d in all_dates if d[0] is not None]
+
+    return render_template('reporting.html', expenses=expenses, report_data=report_data, categories=categories, transaction_dates=highlighted_dates)

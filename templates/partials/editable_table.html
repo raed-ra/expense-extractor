@@ -1,0 +1,54 @@
+<!-- partials/editable_table.html -->
+<div class="table-responsive">
+    <table id="transactionsTable" class="table table-bordered">
+        <thead class="table-light">
+            <tr>
+                <th>Delete</th>
+                <th style="display:none">ID</th>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Type</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in expenses %}
+            <tr>
+                <td><input type="checkbox" class="delete-checkbox"></td>
+                <td style="display:none"><input type="hidden" class="txn-id" value="{{ item.id }}"></td>
+                <td><input type="date" class="form-control" value="{{ item.date }}"></td>
+                <td><input type="text" class="form-control" value="{{ item.description }}"></td>
+                <td><input type="number" step="0.01" class="form-control" value="{{ item.amount }}"></td>
+                <td>
+                    <select class="form-select">
+                        <option value="debit" {% if item.type == 'debit' %}selected{% endif %}>Debit</option>
+                        <option value="credit" {% if item.type == 'credit' %}selected{% endif %}>Credit</option>
+                    </select>
+                </td>
+                <td>
+                    <select class="form-select category-selector">
+                        {% for cat in categories %}
+                            <option value="{{ cat }}" {% if item.category == cat %}selected{% endif %}>{{ cat }}</option>
+                        {% endfor %}
+                        <option value="__custom__" {% if item.category not in categories %}selected{% endif %}>Other...</option>
+                    </select>
+            
+                    <input type="text" class="form-control category-input mt-2" 
+                           {% if item.category in categories %}style="display:none"{% endif %}
+                           value="{% if item.category not in categories %}{{ item.category }}{% endif %}" 
+                           placeholder="Enter new category">
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="d-flex justify-content-between">
+    <button id="addRowBtn" class="btn btn-secondary">➕ Add New Transaction</button>
+    <div>
+        <button id="deleteSelectedBtn" class="btn btn-danger">🗑️ Delete Selected</button>
+        <button id="submitBtn" class="btn btn-success" data-submit-url="{{ submit_url }}" data-mode="{{ mode }}">💾 Save All</button>
+    </div>
+</div>

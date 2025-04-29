@@ -1,0 +1,50 @@
+<!-- manage_transactions.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Transactions</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h2 class="mb-4">Manage Transactions</h2>
+
+    <form method="GET" action="/manage-transactions" class="row g-3 align-items-end">
+        <div class="col-md-4">
+            <label for="fromDate" class="form-label">From Date</label>
+            <input type="text" id="fromDate" name="from" class="form-control" placeholder="Select start date">
+        </div>
+        <div class="col-md-4">
+            <label for="toDate" class="form-label">To Date</label>
+            <input type="text" id="toDate" name="to" class="form-control" placeholder="Select end date">
+        </div>
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-primary">🔍 Filter</button>
+        </div>
+    </form>
+
+    <div class="mt-4">
+        {% include 'partials/editable_table.html' %}
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    const availableTransactionDates = {{ transaction_dates | tojson }};
+
+    flatpickr("#fromDate", {
+        enable: availableTransactionDates,
+        dateFormat: "Y-m-d"
+    });
+
+    flatpickr("#toDate", {
+        enable: availableTransactionDates,
+        dateFormat: "Y-m-d"
+    });
+</script>
+<script src="{{ url_for('static', filename='js/transactions_table.js') }}"></script>
+</body>
+</html>

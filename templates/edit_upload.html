@@ -1,5 +1,4 @@
 <!-- templates/edit_upload.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,49 +10,18 @@
 <div class="container mt-4">
     <h2 class="mb-4">Edit Uploaded Transactions</h2>
 
-    <div class="table-responsive">
-        <table id="transactionsTable" class="table table-bordered">
-            <thead class="table-light">
-                <tr>
-                    <th>Date</th>
-                    <th>Description</th>
-                    <th>Amount</th>
-                    <th>Type</th>
-                    <th>Category</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in expenses %}
-                <tr>
-                    <td><input type="date" class="form-control" value="{{ item.date }}"></td>
-                    <td><input type="text" class="form-control" value="{{ item.description }}"></td>
-                    <td><input type="number" class="form-control" value="{{ item.amount }}"></td>
-                    <td>
-                        <select class="form-select">
-                            <option value="debit" {% if item.type == 'debit' %}selected{% endif %}>Debit</option>
-                            <option value="credit" {% if item.type == 'credit' %}selected{% endif %}>Credit</option>
-                        </select>
-                    </td>
-                    <td><input type="text" class="form-control" value="{{ item.category }}"></td>
-                    <td>
-                        <button class="btn btn-danger btn-sm delete-row">🗑️ Delete</button>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+    {% include 'partials/editable_table.html' with context %}
 
-    <div class="d-flex justify-content-between">
-        <button id="addRowBtn" class="btn btn-primary">➕ Add New Transaction</button>
-        <button id="submitBtn" class="btn btn-success">✅ Submit All</button>
-    </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="{{ url_for('static', filename='js/edit.js') }}"></script>
-
-
+<script>
+    // Explicitly define context for submission
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('submitBtn').setAttribute('data-submit-url', '/edit-upload');
+        document.getElementById('submitBtn').setAttribute('data-mode', 'create');
+    });
+</script>
+<script src="{{ url_for('static', filename='js/transactions_table.js') }}"></script>
 </body>
 </html>

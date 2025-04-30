@@ -1,7 +1,2 @@
-flask
-openai
-PyPDF2
-flask_sqlalchemy
-python-dateutil
-python-dotenv
-demjson3
+flask==2.0.1
+sqlalchemy==1.4.23

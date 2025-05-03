@@ -1,35 +1,27 @@
-from flask import Flask, render_template
+# /app.py
+from flask import Flask
+from routes import register_routes
+import os
+from db import Base, engine
+from models import User, Transaction
+
+# Conditionally create DB/tables if not already there
+if not os.path.exists("expensemanager.db"):
+    print("🔧 Creating database and tables...")
+    Base.metadata.create_all(bind=engine)
 
 def create_app():
-   
-    # Initialize the Flask application
     app = Flask(__name__)
+    app.config['SECRET_KEY'] = 'your-secret-key'
     
-    # Configure the application
-    app.config['SECRET_KEY'] = 'your-secret-key'  # Change this in production
-    
-    # Register routes
-    
-    # Define the route for the homepage
     @app.route('/')
     def index():
-        return 'Welcome to ExpenseManager! Go to <a href="/login">login page</a> or <a href="/register">register page</a>'
-    
-    # Define the route for the login page
-    @app.route('/login')
-    def login():
-        return render_template('auth/login.html')
-    
-    # Define the route for the registration page
-    @app.route('/register')
-    def register():
-        return render_template('auth/register.html')
-    
+        return 'Welcome! Go to <a href="/auth/login">Login</a> or <a href="/auth/register">Register</a>'
+
+    register_routes(app)
     return app
 
-# Create the application using the factory function
 app = create_app()
 
 if __name__ == '__main__':
-    # Enable debug mode for development
     app.run(debug=True)

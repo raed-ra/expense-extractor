@@ -1,9 +1,12 @@
 # /app.py
 from flask import Flask
+from dotenv import load_dotenv
 from routes import register_routes
 import os
-from db import Base, engine
+from db import Base, engine, init_app
 from models import User, Transaction
+
+load_dotenv() 
 
 # Conditionally create DB/tables if not already there
 if not os.path.exists("expensemanager.db"):
@@ -19,6 +22,8 @@ def create_app():
         return 'Welcome! Go to <a href="/auth/login">Login</a> or <a href="/auth/register">Register</a>'
 
     register_routes(app)
+    init_app(app)  # only for CLI & teardown setup
+
     return app
 
 app = create_app()

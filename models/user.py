@@ -18,4 +18,6 @@ class User(Base):
     
     # Relationships
     transactions = relationship("Transaction", back_populates="user")
+    uploads = relationship("Upload", back_populates="user")
+
     # blogs = relationship("Blog", back_populates="author")

@@ -1,36 +1,112 @@
-{% extends "components/auth_base.html" %} {% block title %}Register - QuickNote{% endblock %} {% block content %}
-<div class="auth-container">
-    <div class="auth-header">
-        <h1>Create New Account</h1>
-        <p>Register a new QuickNote account</p>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register - ExpenseManager</title>
+    <link rel="stylesheet" href="static/css/styles.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-beige-100">
+    <div class="min-h-screen flex flex-col">
+      <header class="py-4">
+        <div class="container mx-auto">
+          <div class="logo">ExpenseManager</div>
+        </div>
+      </header>
+
+      <main class="flex-grow">
+        <div class="container mx-auto px-4">
+          <div class="auth-layout">
+            <div class="intro-section">
+              <h2>Smart Financial Management</h2>
+              <div class="intro-content">
+                <p>
+                  ExpenseManager helps you easily manage your personal finances.
+                  Whether it's daily expenses, spending trend analysis, or
+                  financial sharing, everything is at your fingertips.
+                </p>
+                <ul>
+                  <li>Record income and expenses anytime, anywhere</li>
+                  <li>Visualized reports to understand money flow</li>
+                  <li>Efficiently organize transaction data</li>
+                  <li>Freely choose to share your financial stories</li>
+                </ul>
+                <p>
+                  Designed for modern lifestyles, helping you develop better
+                  financial habits and achieve financial freedom.
+                </p>
+              </div>
+            </div>
+            <div class="auth-section">
+              <div class="auth-container">
+                <div class="auth-header">
+                  <h1>Create New Account</h1>
+                  <p>Register a new ExpenseManager account</p>
+                </div>
+
+                <form method="post" action="/register">
+                  <div class="form-group">
+                    <label for="username" class="form-label">Username</label>
+                    <input
+                      type="text"
+                      id="username"
+                      name="username"
+                      class="form-input"
+                      required
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input
+                      type="password"
+                      id="password"
+                      name="password"
+                      class="form-input"
+                      required
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="confirm_password" class="form-label"
+                      >Confirm Password</label
+                    >
+                    <input
+                      type="password"
+                      id="confirm_password"
+                      name="confirm_password"
+                      class="form-input"
+                      required
+                    />
+                  </div>
+
+                  <button type="submit" class="btn btn-primary">
+                    Register
+                  </button>
+                </form>
+
+                <div class="auth-footer">
+                  Already have an account?
+                  <a href="/login">Login Now</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer class="py-4 mt-auto">
+        <div class="container mx-auto text-center text-gray-500 text-sm">
+          <p>
+            &copy; 2023 ExpenseManager - Simple, efficient personal finance
+            application
+          </p>
+        </div>
+      </footer>
     </div>
-
-    {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
-    <div class="flash-messages flash-{{ category }}">{{ message }}</div>
-    {% endfor %} {% endif %} {% endwith %}
-
-    <form method="post" action="{{ url_for('auth.register') }}">
-        <div class="form-group">
-            <label for="username" class="form-label">Username</label>
-            <input type="text" id="username" name="username" class="form-input" required />
-        </div>
-
-        <div class="form-group">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" id="password" name="password" class="form-input" required />
-        </div>
-
-        <div class="form-group">
-            <label for="confirm_password" class="form-label">Confirm Password</label>
-            <input type="password" id="confirm_password" name="confirm_password" class="form-input" required />
-        </div>
-
-        <button type="submit" class="btn btn-primary">Register</button>
-    </form>
-
-    <div class="auth-footer">
-        Already have an account?
-        <a href="{{ url_for('auth.login') }}">Login Now</a>
-    </div>
-</div>
-{% endblock %}
+  </body>
+</html>

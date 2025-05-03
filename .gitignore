@@ -187,3 +187,5 @@ uploads/
 *.pyc
 *.sqlite3
 
+.expensemanager.db
+

@@ -189,3 +189,6 @@ uploads/
 
 expensemanage.db
 
+.ds_store/
+*.DS_Store
+

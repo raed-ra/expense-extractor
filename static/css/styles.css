@@ -261,6 +261,10 @@ header {
     z-index: 1;
 }
 
+.form-control, .form-select {
+    width: 100%;
+}
+
 .btn-primary {
     background-color: var(--primary-color);
     color: white;
@@ -361,4 +365,32 @@ header {
     .intro-content ul li {
         padding-left: 25px;
     }
+}
+
+/* Table fix styles */
+#transactionsTable th, #transactionsTable td {
+    padding: 0.75rem 0.75rem;
+    vertical-align: middle;
+    text-align: left;
+    border: 1px solid #dee2e6;
+}
+
+#transactionsTable {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+}
+
+#transactionsTable td input,
+#transactionsTable td select {
+    width: 100%;
+}
+
+#transactionsTable tbody tr:nth-child(even) {
+    background-color: #fdfaf5;
+}
+
+#transactionsTable tbody tr:hover {
+    background-color: #fff0e0;
+    font-weight: 500;
 }

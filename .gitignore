@@ -200,3 +200,16 @@ expensemanage.db
 
 # Ignore the entire uploads folder and its contents
 uploads/
+
+*.icloud
+**/*.icloud
+
+user_data/
+uploads/
+extracted_text/
+env-zhongyi/
+.flaskenv
+__pycache__/
+
+
+

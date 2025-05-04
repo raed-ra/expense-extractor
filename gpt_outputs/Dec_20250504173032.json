@@ -1,0 +1,142 @@
+[
+  {
+    "date": "2024-12-02",
+    "description": "Transfer to HSBC Credit Card",
+    "amount": 6000.0,
+    "type": "debit",
+    "category": "credit card payment"
+  },
+  {
+    "date": "2024-12-02",
+    "description": "Food and expenses",
+    "amount": 180.0,
+    "type": "debit",
+    "category": "food"
+  },
+  {
+    "date": "2024-12-03",
+    "description": "VISA AUD 100 St Georges Tce",
+    "amount": 500.0,
+    "type": "debit",
+    "category": "shopping"
+  },
+  {
+    "date": "2024-12-03",
+    "description": "EFTPOS Spriggy",
+    "amount": 50.0,
+    "type": "debit",
+    "category": "entertainment"
+  },
+  {
+    "date": "2024-12-09",
+    "description": "Food and expenses",
+    "amount": 180.0,
+    "type": "debit",
+    "category": "food"
+  },
+  {
+    "date": "2024-12-09",
+    "description": "Dinner Sheshbesh",
+    "amount": 26.0,
+    "type": "debit",
+    "category": "dining"
+  },
+  {
+    "date": "2024-12-10",
+    "description": "EFTPOS Spriggy",
+    "amount": 50.0,
+    "type": "debit",
+    "category": "entertainment"
+  },
+  {
+    "date": "2024-12-11",
+    "description": "Loan Payment",
+    "amount": 2461.8,
+    "type": "debit",
+    "category": "loan"
+  },
+  {
+    "date": "2024-12-12",
+    "description": "Transfer to HSBC Credit Card",
+    "amount": 4000.0,
+    "type": "debit",
+    "category": "credit card payment"
+  },
+  {
+    "date": "2024-12-16",
+    "description": "Transfer to HSBC Credit Card",
+    "amount": 3000.0,
+    "type": "debit",
+    "category": "credit card payment"
+  },
+  {
+    "date": "2024-12-16",
+    "description": "Food and expenses",
+    "amount": 180.0,
+    "type": "debit",
+    "category": "food"
+  },
+  {
+    "date": "2024-12-17",
+    "description": "EFTPOS Spriggy",
+    "amount": 50.0,
+    "type": "debit",
+    "category": "entertainment"
+  },
+  {
+    "date": "2024-12-20",
+    "description": "Child support",
+    "amount": 1057.0,
+    "type": "debit",
+    "category": "child support"
+  },
+  {
+    "date": "2024-12-20",
+    "description": "EFTPOS VISA Toronto Parking Authority",
+    "amount": 2.27,
+    "type": "debit",
+    "category": "transportation"
+  },
+  {
+    "date": "2024-12-23",
+    "description": "Food and expenses",
+    "amount": 180.0,
+    "type": "debit",
+    "category": "food"
+  },
+  {
+    "date": "2024-12-24",
+    "description": "EFTPOS Spriggy",
+    "amount": 50.0,
+    "type": "debit",
+    "category": "entertainment"
+  },
+  {
+    "date": "2024-12-27",
+    "description": "Water Corp",
+    "amount": 412.59,
+    "type": "debit",
+    "category": "utilities"
+  },
+  {
+    "date": "2024-12-30",
+    "description": "Transfer to HSBC Credit Card",
+    "amount": 9809.0,
+    "type": "debit",
+    "category": "credit card payment"
+  },
+  {
+    "date": "2024-12-30",
+    "description": "Food and expenses",
+    "amount": 180.0,
+    "type": "debit",
+    "category": "food"
+  },
+  {
+    "date": "2024-12-31",
+    "description": "EFTPOS Spriggy",
+    "amount": 50.0,
+    "type": "debit",
+    "category": "entertainment"
+  }
+]

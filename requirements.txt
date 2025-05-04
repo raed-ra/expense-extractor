@@ -1,3 +1,4 @@
-flask==2.0.1
-sqlalchemy==1.4.23
-python-dotenv
+flask==3.0.2
+werkzeug==3.0.1
+sqlalchemy==2.0.25
+python-dotenv==1.0.1

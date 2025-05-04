@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register - ExpenseManager</title>
-    <link rel="stylesheet" href="static/css/styles.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
     <link
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
@@ -41,6 +41,7 @@
                 </p>
               </div>
             </div>
+
             <div class="auth-section">
               <div class="auth-container">
                 <div class="auth-header">
@@ -48,7 +49,19 @@
                   <p>Register a new ExpenseManager account</p>
                 </div>
 
-                <form method="post" action="/register">
+                <!-- ✅ FORM starts here -->
+                <form method="post" action="/auth/register">
+                  <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      class="form-input"
+                      required
+                    />
+                  </div>
+
                   <div class="form-group">
                     <label for="username" class="form-label">Username</label>
                     <input
@@ -72,9 +85,7 @@
                   </div>
 
                   <div class="form-group">
-                    <label for="confirm_password" class="form-label"
-                      >Confirm Password</label
-                    >
+                    <label for="confirm_password" class="form-label">Confirm Password</label>
                     <input
                       type="password"
                       id="confirm_password"
@@ -88,10 +99,11 @@
                     Register
                   </button>
                 </form>
+                <!-- ✅ FORM ends here -->
 
                 <div class="auth-footer">
                   Already have an account?
-                  <a href="/login">Login Now</a>
+                  <a href="/auth/login">Login Now</a>
                 </div>
               </div>
             </div>
@@ -102,7 +114,7 @@
       <footer class="py-4 mt-auto">
         <div class="container mx-auto text-center text-gray-500 text-sm">
           <p>
-            &copy; 2023 ExpenseManager - Simple, efficient personal finance
+            &copy; 2025 ExpenseManager - Simple, efficient personal finance
             application
           </p>
         </div>

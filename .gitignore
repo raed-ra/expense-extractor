@@ -401,6 +401,7 @@ extracted_text/
 env-zhongyi/
 .flaskenv
 __pycache__/
+gpt_outputs/
 
 
 

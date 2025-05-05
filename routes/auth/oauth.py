@@ -1,9 +1,8 @@
 # routes/auth/oauth.py
 
 from flask import Blueprint
+from routes.auth.login import auth_bp
 
-oauth_bp = Blueprint("oauth", __name__, url_prefix="/auth/oauth")
-
-@oauth_bp.route("/google")
+@auth_bp.route("/google")
 def login_with_google():
     return "OAuth login coming soon!"

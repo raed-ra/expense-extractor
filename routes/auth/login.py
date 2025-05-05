@@ -1,5 +1,6 @@
 # /routes/auth/login.py
 from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask_login import login_user, logout_user
 from db import  get_db
 from models import User
 from sqlalchemy.exc import SQLAlchemyError
@@ -20,6 +21,7 @@ def login():
             user = db.query(User).filter_by(email=email).first()
             # Inside your login route
             if user and check_password_hash(user.password, password):
+                login_user(user)
                 flash('Logged in successfully!', 'success')
                 return redirect(url_for('index'))
             else:
@@ -68,3 +70,9 @@ def register():
             print(e)
 
     return render_template('auth/register.html')
+
+@auth_bp.route('/logout')
+def logout():
+    logout_user()
+    flash('Logged out successfully.', 'success')
+    return redirect(url_for('auth.login'))  # Or 'auth.login'

@@ -3,8 +3,9 @@ from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from db import Base
+from flask_login import UserMixin
 
-class User(Base):
+class User(Base,UserMixin):
     __tablename__ = 'users'
     
     id = Column(Integer, primary_key=True)

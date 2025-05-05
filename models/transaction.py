@@ -17,6 +17,7 @@ class Transaction(Base):
     description = Column(String(255), nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    #upload_id = Column(Integer, ForeignKey('uploads.id'))
 
     user = relationship("User", back_populates="transactions")
 

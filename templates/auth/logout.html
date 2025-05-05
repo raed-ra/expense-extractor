@@ -29,30 +29,14 @@ ExpenseManager{% endblock %} {% block content %}
   </div>
 </div>
 
-<script>
-  // Prevent access to previous pages using the browser back button
-  window.history.pushState(null, "", window.location.href);
-  window.onpopstate = function () {
-    window.history.pushState(null, "", window.location.href);
-  };
+<!-- 登录URL数据元素 -->
+<div
+  id="login-url"
+  data-url="{{ url_for('auth.login') }}"
+  style="display: none"
+></div>
 
-  // Clear browser history cache
-  window.onload = function () {
-    if (
-      window.performance &&
-      window.performance.navigation.type ===
-        window.performance.navigation.TYPE_BACK_FORWARD
-    ) {
-      window.location.replace("{{ url_for('auth.login') }}");
-    }
-  };
+<!-- 引入登出脚本 -->
+<script src="{{ url_for('static', filename='js/logout.js') }}"></script>
 
-  // Add cache browser disable header
-  document.addEventListener("DOMContentLoaded", function () {
-    // Redirect to login page after 2 seconds
-    setTimeout(function () {
-      window.location.href = "{{ url_for('auth.login') }}";
-    }, 2000);
-  });
-</script>
 {% endblock %}

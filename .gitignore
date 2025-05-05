@@ -397,7 +397,7 @@ uploads/
 
 user_data/
 uploads/
-extracted_text/
+extracted_texts/
 env-zhongyi/
 .flaskenv
 __pycache__/

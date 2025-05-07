@@ -6,5 +6,9 @@ openai
 PyPDF2
 python-dateutil
 python-dotenv
-flask-login
+flask-login>=0.6.3
 demjson3
+google-auth-oauthlib>=1.2.0
+google-auth-httplib2>=0.2.0
+google-auth>=2.0.0
+alembic

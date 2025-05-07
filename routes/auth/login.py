@@ -75,4 +75,4 @@ def register():
 def logout():
     logout_user()
     flash('Logged out successfully.', 'success')
-    return redirect(url_for('auth.login'))  # Or 'auth.login'
+    return render_template('auth/logout.html')

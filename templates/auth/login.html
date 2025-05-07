@@ -63,13 +63,13 @@ ExpenseManager{% endblock %} {% block content %}
 
   <!-- Google Login Button -->
   <div>
-    <button type="button" class="btn-google">
+    <a href="{{ url_for('auth.login_with_google') }}" class="btn-google">
       <img
         src="{{ url_for('static', filename='img/icons/google.svg') }}"
         alt="Google logo"
       />
       Sign in with Google
-    </button>
+    </a>
   </div>
 
   <div class="auth-footer">

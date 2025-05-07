@@ -6,7 +6,7 @@ from routes import register_routes
 import os
 from db import Base, engine, init_app, get_db
 from models import User, Transaction, Upload
-from flask import g
+from flask import g, request
 
 load_dotenv()
 
@@ -30,6 +30,16 @@ def create_app():
     @app.before_request
     def load_logged_in_user():
         g.user = current_user if current_user.is_authenticated else None
+    
+    # Add no cache response header to prevent cached pages from being accessed by logged out users
+    @app.after_request
+    def add_no_cache_headers(response):
+        # Only disable cache for pages that require authentication
+        if current_user.is_authenticated or request.endpoint and 'login' not in request.endpoint:
+            response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+            response.headers['Pragma'] = 'no-cache'
+            response.headers['Expires'] = '0'
+        return response
 
     # Sample home route
     @app.route('/')

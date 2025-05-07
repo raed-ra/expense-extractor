@@ -23,7 +23,7 @@ def login():
             if user and check_password_hash(user.password, password):
                 login_user(user)
                 flash('Logged in successfully!', 'success')
-                return redirect(url_for('index'))
+                return redirect(url_for('record.index'))
             else:
                 flash('Invalid email or password.', 'error')
         except SQLAlchemyError as e:

@@ -1,5 +1,5 @@
 # /app.py
-from flask import Flask
+from flask import Flask, redirect, url_for
 from flask_login import LoginManager, current_user
 from dotenv import load_dotenv
 from routes import register_routes
@@ -44,8 +44,9 @@ def create_app():
     # Sample home route
     @app.route('/')
     def index():
-        return 'Welcome! Go to <a href="/auth/login">Login</a> or <a href="/auth/register">Register</a>'
-
+        #return 'Welcome! Go to <a href="/auth/login">Login</a> or <a href="/auth/register">Register</a>'
+        return redirect(url_for('auth.login'))
+    
     return app
 
 @login_manager.user_loader

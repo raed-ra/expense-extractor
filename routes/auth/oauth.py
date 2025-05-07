@@ -5,13 +5,13 @@ from google_auth_oauthlib.flow import Flow
 from google.oauth2 import id_token
 from google.auth.transport import requests
 from models.user import User
-from db import get_db  # 修改这里，使用get_db而不是db
+from db import get_db 
 from flask_login import login_user
-from .login import auth_bp  # 从login模块导入auth_bp
+from .login import auth_bp  # import auth_bp from login.py
 import os
 import json
 
-# 配置OAuth 2.0客户端ID
+# config oauth client id
 CLIENT_SECRETS_FILE = "client_secrets.json"
 SCOPES = ['openid', 'https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile']
 
@@ -47,25 +47,25 @@ def oauth2callback():
         credentials.id_token, requests.Request(), credentials.client_id
     )
     
-    # 获取数据库会话
+    # get db session
     db = get_db()
     
-    # 检查用户是否已存在
+    # check if user exists
     user = db.query(User).filter_by(oauth_id=id_info['sub']).first()
     
     if not user:
-        # 创建新用户
+        # create new user
         user = User(
             email=id_info['email'],
             username=id_info.get('name', id_info['email'].split('@')[0]),
             oauth_provider='google',
             oauth_id=id_info['sub'],
             avatar=id_info.get('picture'),
-            password=''  # OAuth用户不需要密码
+            password=''  # oauth user doesn't need password
         )
         db.add(user)
         db.commit()
     
-    # 登录用户
+    # login user
     login_user(user)
     return redirect(url_for('index'))

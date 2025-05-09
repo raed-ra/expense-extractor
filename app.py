@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from routes import register_routes
 import os
 from db import Base, engine, init_app, get_db
-from models import User, Transaction, Upload
+from models import User, Transaction, Upload, SharedReport, SharedView
 from flask import g, request
 
 load_dotenv()

@@ -10,6 +10,7 @@
             <tr>
                 <th class="px-4 py-2">Date</th>
                 <th class="px-4 py-2">Type</th>
+                <th class="px-4 py-2">Credit Type</th>
                 <th class="px-4 py-2">Category</th>
                 <th class="px-4 py-2">Description</th>
                 <th class="px-4 py-2">Amount</th>
@@ -23,9 +24,15 @@
                     <input type="date" class="form-input border-gray-300 rounded w-full text-xs py-1 px-2" value="{{ t.date }}">
                 </td>
                 <td class="px-4 py-2">
-                    <select class="form-select border-gray-300 rounded w-full text-xs py-1 px-2">
-                        <option value="debit" {% if t.type == 'debit' %}selected{% endif %}>Debit</option>
-                        <option value="credit" {% if t.type == 'credit' %}selected{% endif %}>Credit</option>
+                    <select class="form-select border-gray-300 rounded w-full text-xs py-1 px-2 type-selector">
+                        <option value="income" {% if t.type == 'income' %}selected{% endif %}>Income</option>
+                        <option value="expense" {% if t.type == 'expense' %}selected{% endif %}>Expense</option>
+                    </select>
+                </td>
+                <td class="px-4 py-2">
+                    <select class="form-select border-gray-300 rounded w-full text-xs py-1 px-2 credit-type-selector">
+                        <option value="debit" {% if t.credit_type == 'debit' %}selected{% endif %}>Debit</option>
+                        <option value="credit" {% if t.credit_type == 'credit' %}selected{% endif %}>Credit</option>
                     </select>
                 </td>
                 <td class="px-4 py-2">
@@ -45,7 +52,7 @@
             </tr>
             {% else %}
             <tr>
-                <td colspan="6" class="text-center text-gray-500 py-4 text-sm">No transactions found.</td>
+                <td colspan="7" class="text-center text-gray-500 py-4 text-sm">No transactions found.</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -59,31 +66,16 @@
 
 <style>
 @keyframes slideFadeIn {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
+  0% { opacity: 0; transform: translate(-50%, -20px); }
+  100% { opacity: 1; transform: translate(-50%, 0); }
 }
-
 @keyframes slideFadeOut {
-  0% {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -20px);
-  }
+  0% { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, -20px); }
 }
-
 .animate-slide-fade-in {
   animation: slideFadeIn 0.4s ease-out forwards;
 }
-
 .animate-slide-fade-out {
   animation: slideFadeOut 0.4s ease-in forwards;
 }

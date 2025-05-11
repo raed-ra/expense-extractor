@@ -14,3 +14,7 @@ class Upload(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
 
     user = relationship("User", back_populates="uploads")
+    
+    # Relationship to Transaction
+    transactions = relationship("Transaction", back_populates="upload", cascade="all, delete-orphan")
+

@@ -3,17 +3,38 @@ import openai
 import os
 import re
 import demjson3
+from datetime import datetime
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def send_to_chatgpt(prompt, user_id):
-    client = openai.Client(api_key=os.getenv("OPENAI_API_KEY"))
+    # Error handling
+    try:
+        client = openai.Client(api_key=os.getenv("OPENAI_API_KEY"))
 
-    response = client.chat.completions.create(
-        model="gpt-4o",
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0.2
-    )
+        response = client.chat.completions.create(
+            model="gpt-4o",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.2
+        )
 
-    raw_chunk = response.choices[0].message.content.strip()
+        raw_chunk = response.choices[0].message.content.strip()
+
+    except openai.OpenAIError as e:
+        # ✅ Optional fallback in development mode
+        if os.getenv("FLASK_ENV") == "development":
+            print(f"[WARNING] GPT fallback due to error: {e}")
+            return [{
+                "date": str(datetime.now().date()),
+                "description": "Test fallback item",
+                "amount": "123.45",
+                "type": "debit"
+            }]
+        else:
+            raise RuntimeError(f"GPT call failed: {e}")
+
+    
 
     # 📂 Create user-specific folder if needed
     output_folder = os.path.join("user_data", f"user_{user_id}")

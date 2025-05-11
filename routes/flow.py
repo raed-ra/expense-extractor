@@ -30,6 +30,7 @@ def edit_transaction(transaction_id):
     # Update fields from the form
     txn.date = datetime.strptime(request.form.get("date"), "%Y-%m-%d").date()
     txn.type = request.form.get("type")
+    txn.credit_type = request.form.get("credit_type")
     txn.category = request.form.get("category")
     txn.description = request.form.get("description")
     txn.amount = float(request.form.get("amount") or 0)

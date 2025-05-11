@@ -1,14 +1,17 @@
-// flow.js
 // This script handles the dynamic behavior of the flow table, including editing and saving rows.
 
 async function saveRow(id) {
     const row = document.querySelector(`tr[data-id='${id}']`);
+    const selects = row.querySelectorAll('select');
+    const inputs = row.querySelectorAll('input');
+
     const data = {
-        date: row.querySelector('input[type="date"]').value,
-        type: row.querySelector('select').value,
-        category: row.querySelectorAll('input')[1].value,
-        description: row.querySelectorAll('input')[2].value,
-        amount: row.querySelector('input[type="number"]').value
+        date: inputs[0].value,
+        type: selects[0].value,           // Income / Expense
+        credit_type: selects[1].value,    // Debit / Credit
+        category: inputs[1].value,
+        description: inputs[2].value,
+        amount: inputs[3].value
     };
 
     const response = await fetch(`/flow/${id}/edit`, {
@@ -24,7 +27,7 @@ async function saveRow(id) {
     if (result.success) {
         showToast("✅ Changes saved!");
     } else {
-        alert('Error: ' + result.message);
+        alert('❌ Error: ' + result.message);
     }
 }
 

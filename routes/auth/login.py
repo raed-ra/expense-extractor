@@ -1,5 +1,5 @@
 # /routes/auth/login.py
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from flask_login import login_user, logout_user
 from db import  get_db
 from models import User
@@ -22,6 +22,7 @@ def login():
             # Inside your login route
             if user and check_password_hash(user.password, password):
                 login_user(user)
+                session['user_id'] = user.id
                 flash('Logged in successfully!', 'success')
                 return redirect(url_for('home.index'))
             else:

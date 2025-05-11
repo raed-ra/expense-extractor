@@ -1,11 +1,11 @@
 # /app.py
-from flask import Flask
+from flask import Flask, redirect, url_for
 from flask_login import LoginManager, current_user
 from dotenv import load_dotenv
 from routes import register_routes
 import os
 from db import Base, engine, init_app, get_db
-from models import User, Transaction, Upload
+from models import User, Transaction, Upload, SharedReport, SharedView
 from flask import g, request
 
 load_dotenv()
@@ -44,8 +44,9 @@ def create_app():
     # Sample home route
     @app.route('/')
     def index():
-        return 'Welcome! Go to <a href="/auth/login">Login</a> or <a href="/auth/register">Register</a>'
-
+        #return 'Welcome! Go to <a href="/auth/login">Login</a> or <a href="/auth/register">Register</a>'
+        return redirect(url_for('auth.login'))
+    
     return app
 
 @login_manager.user_loader

@@ -68,4 +68,4 @@ def oauth2callback():
     
     # login user
     login_user(user)
-    return redirect(url_for('index'))
+    return redirect(url_for('home.index'))

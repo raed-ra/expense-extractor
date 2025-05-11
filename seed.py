@@ -24,10 +24,14 @@ def create_transactions_for_user(db, user, num=1000):
         "Healthcare", "Rent", "Insurance", "Subscriptions", "Travel", "Education"
     ]
     for _ in range(num):
+        # separate type and credit_type
+        # to avoid confusion between income and expense
+        txn_type = random.choice(["expense", "income"])
         txn = Transaction(
             user_id=user.id,
             amount=round(random.uniform(5, 500), 2),
-            type=random.choice(["debit", "credit"]),
+            type=txn_type,
+            credit_type=random.choice(["debit", "credit"]),
             category=random.choice(categories),
             description=fake.sentence(nb_words=4),
             date=fake.date_between(start_date="-180d", end_date="today"),

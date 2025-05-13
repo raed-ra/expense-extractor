@@ -56,3 +56,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+// Save All Rows
+function saveAllRows() {
+  document.querySelectorAll('tr[data-id]').forEach(row => {
+    const id = row.dataset.id;
+    saveRow(id); // Assumes this is already defined
+  });
+}
+
+// Animate row on input change
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll('tr[data-id]').forEach(row => {
+    row.querySelectorAll('input, select').forEach(input => {
+      input.addEventListener('change', () => {
+        row.classList.add('changed-row');
+        setTimeout(() => row.classList.remove('changed-row'), 1000);
+      });
+    });
+  });
+});

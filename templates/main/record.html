@@ -1,6 +1,6 @@
-{% extends "components/dashboard_base.html" %} {% block title %}QuickNote - Add
-Record{% endblock %} {% block dashboard_content %}
-<h2 class="text-2xl font-bold text-gray-800 mb-6">Add Record</h2>
+{% extends "components/dashboard_base.html" %} {% block title %}Expense
+Manager{% endblock %} {% block dashboard_content %}
+<h2 class="text-2xl font-bold text-gray-800 mb-6">Record a transaction</h2>
 
 <div class="bg-white rounded-lg">
   <div class="mb-6">
@@ -22,16 +22,25 @@ Record{% endblock %} {% block dashboard_content %}
     </div>
   </div>
 
-  <form method="POST" action="{{ url_for('record.index') }}">
+  <form id="record-form" method="POST" action="{{ url_for('record.index') }}">
+    <!-- <form method="POST" action="{{ url_for('record.index') }}"> -->
     <div class="space-y-6 max-w-3xl">
-      <!-- Amount -->
+      <!-- record type -->
+      <input
+        type="hidden"
+        id="record_type"
+        name="record_type"
+        value="expense"
+      />
+      <!-- amount -->
       <div>
         <label class="block text-gray-700 text-sm font-medium mb-2"
           >Amount</label
         >
         <div class="relative">
-          <span class="absolute left-3 top-3 text-gray-500">¥</span>
+          <span class="absolute left-3 top-3 text-gray-500">$</span>
           <input
+            id="amount"
             type="number"
             name="amount"
             step="0.01"
@@ -42,10 +51,11 @@ Record{% endblock %} {% block dashboard_content %}
         </div>
       </div>
 
-      <!-- Date -->
+      <!-- date -->
       <div>
         <label class="block text-gray-700 text-sm font-medium mb-2">Date</label>
         <input
+          id="date"
           type="date"
           name="date"
           class="form-input py-3 w-full border-gray-300 rounded-lg focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-20"
@@ -53,34 +63,155 @@ Record{% endblock %} {% block dashboard_content %}
         />
       </div>
 
-      <!-- Category -->
+      <!-- category -->
       <div>
         <label class="block text-gray-700 text-sm font-medium mb-2"
           >Category</label
         >
-        <input
-          type="text"
-          name="category"
-          class="form-input py-3 w-full border-gray-300 rounded-lg focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-20"
-          placeholder="Enter category name..."
-          required
-        />
+        <!-- expense category -->
+        <div id="expense-categories" class="grid grid-cols-4 gap-4">
+          <div
+            class="category-item p-4 border border-gray-200 rounded-lg text-center hover:border-primary hover:bg-primary-light cursor-pointer transition duration-200"
+            data-category="Dining"
+            data-type="debit"
+            data-icon="fa-utensils"
+            data-color="#FEE2E2"
+          >
+            <div
+              class="h-12 w-12 rounded-full flex items-center justify-center mx-auto mb-2"
+              style="background-color: #fee2e2"
+            >
+              <i class="fas fa-utensils text-red-500"></i>
+            </div>
+            <span class="text-gray-700">Dining</span>
+          </div>
+          <div
+            class="category-item p-4 border border-gray-200 rounded-lg text-center hover:border-primary hover:bg-primary-light cursor-pointer transition duration-200"
+            data-category="Shopping"
+            data-type="debit"
+            data-icon="fa-shopping-bag"
+            data-color="#EDE9FE"
+          >
+            <div
+              class="h-12 w-12 rounded-full flex items-center justify-center mx-auto mb-2"
+              style="background-color: #ede9fe"
+            >
+              <i class="fas fa-shopping-bag text-purple-500"></i>
+            </div>
+            <span class="text-gray-700">Shopping</span>
+          </div>
+          <div
+            class="category-item p-4 border border-gray-200 rounded-lg text-center hover:border-primary hover:bg-primary-light cursor-pointer transition duration-200"
+            data-category="Transportation"
+            data-type="debit"
+            data-icon="fa-subway"
+            data-color="#FEF3C7"
+          >
+            <div
+              class="h-12 w-12 rounded-full flex items-center justify-center mx-auto mb-2"
+              style="background-color: #fef3c7"
+            >
+              <i class="fas fa-subway text-yellow-500"></i>
+            </div>
+            <span class="text-gray-700">Transportation</span>
+          </div>
+          <div
+            class="category-item p-4 border border-gray-200 rounded-lg text-center hover:border-primary hover:bg-primary-light cursor-pointer transition duration-200"
+            data-category="Housing"
+            data-type="debit"
+            data-icon="fa-home"
+            data-color="#D1FAE5"
+          >
+            <div
+              class="h-12 w-12 rounded-full flex items-center justify-center mx-auto mb-2"
+              style="background-color: #d1fae5"
+            >
+              <i class="fas fa-home text-green-500"></i>
+            </div>
+            <span class="text-gray-700">Housing</span>
+          </div>
+        </div>
+        <!-- income category -->
+        <div id="income-categories" class="grid grid-cols-4 gap-4 hidden">
+          <div
+            class="category-item p-4 border border-gray-200 rounded-lg text-center hover:border-primary hover:bg-primary-light cursor-pointer transition duration-200"
+            data-category="Salary"
+            data-type="credit"
+            data-icon="fa-money-bill-wave"
+            data-color="#DBEAFE"
+          >
+            <div
+              class="h-12 w-12 rounded-full flex items-center justify-center mx-auto mb-2"
+              style="background-color: #dbeafe"
+            >
+              <i class="fas fa-money-bill-wave text-blue-500"></i>
+            </div>
+            <span class="text-gray-700">Salary</span>
+          </div>
+          <div
+            class="category-item p-4 border border-gray-200 rounded-lg text-center hover:border-primary hover:bg-primary-light cursor-pointer transition duration-200"
+            data-category="Bonus"
+            data-type="credit"
+            data-icon="fa-gift"
+            data-color="#E0E7FF"
+          >
+            <div
+              class="h-12 w-12 rounded-full flex items-center justify-center mx-auto mb-2"
+              style="background-color: #e0e7ff"
+            >
+              <i class="fas fa-gift text-indigo-500"></i>
+            </div>
+            <span class="text-gray-700">Bonus</span>
+          </div>
+          <div
+            class="category-item p-4 border border-gray-200 rounded-lg text-center hover:border-primary hover:bg-primary-light cursor-pointer transition duration-200"
+            data-category="Investment"
+            data-type="credit"
+            data-icon="fa-chart-line"
+            data-color="#DCFCE7"
+          >
+            <div
+              class="h-12 w-12 rounded-full flex items-center justify-center mx-auto mb-2"
+              style="background-color: #dcfce7"
+            >
+              <i class="fas fa-chart-line text-green-500"></i>
+            </div>
+            <span class="text-gray-700">Investment</span>
+          </div>
+          <div
+            class="category-item p-4 border border-gray-200 rounded-lg text-center hover:border-primary hover:bg-primary-light cursor-pointer transition duration-200"
+            data-category="Other"
+            data-type="credit"
+            data-icon="fa-wallet"
+            data-color="#F3E8FF"
+          >
+            <div
+              class="h-12 w-12 rounded-full flex items-center justify-center mx-auto mb-2"
+              style="background-color: #f3e8ff"
+            >
+              <i class="fas fa-wallet text-purple-500"></i>
+            </div>
+            <span class="text-gray-700">Other</span>
+          </div>
+        </div>
+        <input type="hidden" id="category" name="category" value="" />
       </div>
 
-      <!-- Description -->
+      <!-- description -->
       <div>
         <label class="block text-gray-700 text-sm font-medium mb-2"
           >Description</label
         >
         <input
+          id="description"
           type="text"
           name="description"
           class="form-input py-3 w-full border-gray-300 rounded-lg focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-20"
-          placeholder="Add a brief description..."
+          placeholder="add a short description..."
         />
       </div>
 
-      <!-- Submit button -->
+      <!-- submit button -->
       <div class="text-center">
         <button
           type="submit"
@@ -97,9 +228,17 @@ Record{% endblock %} {% block dashboard_content %}
   document.addEventListener("DOMContentLoaded", function () {
     const btnExpense = document.getElementById("btn-expense");
     const btnIncome = document.getElementById("btn-income");
-    const transactionTypeInput = document.getElementById("transaction_type");
+    const expenseCategories = document.getElementById("expense-categories");
+    const incomeCategories = document.getElementById("income-categories");
 
-    // Expense/Income toggle
+    //input
+    const recordTypeInput = document.getElementById("record_type");
+    const categoryInput = document.getElementById("category");
+    const amountInput = document.getElementById("amount");
+    const dateInput = document.getElementById("date");
+    const descriptionInput = document.getElementById("description");
+
+    // expense/income switch
     btnExpense.addEventListener("click", function () {
       btnExpense.classList.remove("bg-gray-100", "text-gray-600");
       btnExpense.classList.add("bg-red-50", "text-red-600");
@@ -107,8 +246,12 @@ Record{% endblock %} {% block dashboard_content %}
       btnIncome.classList.remove("bg-green-50", "text-green-600");
       btnIncome.classList.add("bg-gray-100", "text-gray-600");
 
-      // Update transaction type
-      transactionTypeInput.value = "expense";
+      // show expense category, hide income category
+      expenseCategories.classList.remove("hidden");
+      incomeCategories.classList.add("hidden");
+
+      // update record type
+      recordTypeInput.value = "expense";
     });
 
     btnIncome.addEventListener("click", function () {
@@ -118,8 +261,26 @@ Record{% endblock %} {% block dashboard_content %}
       btnExpense.classList.remove("bg-red-50", "text-red-600");
       btnExpense.classList.add("bg-gray-100", "text-gray-600");
 
-      // Update transaction type
-      transactionTypeInput.value = "income";
+      // show income category, hide expense category
+      incomeCategories.classList.remove("hidden");
+      expenseCategories.classList.add("hidden");
+
+      // update record type
+      recordTypeInput.value = "income";
+    });
+
+    // category click event
+    function clearCategorySelection() {
+      document.querySelectorAll(".category-item").forEach((item) => {
+        item.classList.remove("border-primary", "bg-primary-light");
+      });
+    }
+    document.querySelectorAll(".category-item").forEach((item) => {
+      item.addEventListener("click", function () {
+        clearCategorySelection();
+        this.classList.add("border-primary", "bg-primary-light");
+        categoryInput.value = this.getAttribute("data-category");
+      });
     });
   });
 </script>

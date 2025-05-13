@@ -8,6 +8,7 @@ from .public import public_bp
 from .record import record_bp
 from .flow import flow_bp
 from .report import report_bp
+from .api import api_bp
 
 
 def register_routes(app):
@@ -18,3 +19,5 @@ def register_routes(app):
     app.register_blueprint(record_bp)
     app.register_blueprint(flow_bp)
     app.register_blueprint(report_bp)
+    app.register_blueprint(api_bp)
+

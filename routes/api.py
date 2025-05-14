@@ -3,7 +3,7 @@ from flask_login import login_required
 from sqlalchemy import func
 from datetime import datetime, timedelta
 from db import get_db
-from models.record_list import Record
+from models.transaction import Transaction
 
 api_bp = Blueprint('api', __name__, url_prefix='/api')
 
@@ -22,52 +22,46 @@ def financial_overview():
         previous_month_start = datetime(today.year - 1, 12, 1)
     else:
         previous_month_start = datetime(today.year, today.month - 1, 1)
-    
+
+
     # 计算当前月份支出和收入
-    current_month_expenses = db.query(func.sum(Record.amount)).filter(
-        Record.user_id == g.user.id,
-        Record.type == 'expense',
-        Record.date >= current_month_start,
-        Record.date < today + timedelta(days=1)
+    current_month_expenses = db.query(func.sum(Transaction.amount)).filter(
+        Transaction.user_id == g.user.id,
+        Transaction.type == 'expense',
+        Transaction.date >= current_month_start,
+        Transaction.date < today + timedelta(days=1)
+    ).scalar() or 0
+
+    current_month_income = db.query(func.sum(Transaction.amount)).filter(
+        Transaction.user_id == g.user.id,
+        Transaction.type == 'income',
+        Transaction.date >= current_month_start,
+        Transaction.date < today + timedelta(days=1)
     ).scalar() or 0
     
-    current_month_income = db.query(func.sum(Record.amount)).filter(
-        Record.user_id == g.user.id,
-        Record.type == 'income',
-        Record.date >= current_month_start,
-        Record.date < today + timedelta(days=1)
-    ).scalar() or 0
     
     # 计算上个月支出和收入
-    previous_month_expenses = db.query(func.sum(Record.amount)).filter(
-        Record.user_id == g.user.id,
-        Record.type == 'expense',
-        Record.date >= previous_month_start,
-        Record.date < current_month_start
+    previous_month_expenses = db.query(func.sum(Transaction.amount)).filter(
+        Transaction.user_id == g.user.id,
+        Transaction.type == 'expense',
+        Transaction.date >= previous_month_start,
+        Transaction.date < current_month_start
+    ).scalar() or 0
+
+    previous_month_income = db.query(func.sum(Transaction.amount)).filter(
+        Transaction.user_id == g.user.id,
+        Transaction.type == 'income',
+        Transaction.date >= previous_month_start,
+        Transaction.date < current_month_start
     ).scalar() or 0
     
-    previous_month_income = db.query(func.sum(Record.amount)).filter(
-        Record.user_id == g.user.id,
-        Record.type == 'income',
-        Record.date >= previous_month_start,
-        Record.date < current_month_start
-    ).scalar() or 0
     
-    # 计算支出类别分布
-    expense_by_category = db.query(
-        Record.category, 
-        func.sum(Record.amount).label('total')
-    ).filter(
-        Record.user_id == g.user.id,
-        Record.type == 'expense',
-        Record.date >= current_month_start,
-        Record.date < today + timedelta(days=1)
-    ).group_by(Record.category).all()
+    
     
     # 获取最近10笔交易
-    recent_transactions = db.query(Record).filter(
-        Record.user_id == g.user.id
-    ).order_by(Record.date.desc()).limit(10).all()
+    recent_transactions = db.query(Transaction).filter(
+        Transaction.user_id == g.user.id
+    ).order_by(Transaction.date.desc()).limit(10).all()
     
     # 计算收入和支出变化百分比
     income_change = calculate_percentage_change(previous_month_income, current_month_income)

@@ -4,88 +4,99 @@
 {% block dashboard_content %}
 <h1 class="text-xl font-semibold text-gray-800 mb-4">Manage Transactions</h1>
 
-<div class="overflow-x-auto rounded shadow border border-gray-200 bg-white">
-    <table class="min-w-full divide-y divide-gray-100 text-sm">
-        <thead class="bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase">
-            <tr>
-                <th class="px-4 py-2">Date</th>
-                <th class="px-4 py-2">Type</th>
-                <th class="px-4 py-2">Category</th>
-                <th class="px-4 py-2">Description</th>
-                <th class="px-4 py-2">Amount</th>
-                <th class="px-4 py-2">Action</th>
-            </tr>
-        </thead>
-        <tbody class="divide-y divide-gray-100">
-            {% for t in transactions %}
-            <tr data-id="{{ t.id }}" class="hover:bg-gray-50">
-                <td class="px-4 py-2">
-                    <input type="date" class="form-input border-gray-300 rounded w-full text-xs py-1 px-2" value="{{ t.date }}">
-                </td>
-                <td class="px-4 py-2">
-                    <select class="form-select border-gray-300 rounded w-full text-xs py-1 px-2">
-                        <option value="debit" {% if t.type == 'debit' %}selected{% endif %}>Debit</option>
-                        <option value="credit" {% if t.type == 'credit' %}selected{% endif %}>Credit</option>
-                    </select>
-                </td>
-                <td class="px-4 py-2">
-                    <input type="text" class="form-input border-gray-300 rounded w-full text-xs py-1 px-2" value="{{ t.category }}">
-                </td>
-                <td class="px-4 py-2">
-                    <input type="text" class="form-input border-gray-300 rounded w-full text-xs py-1 px-2" value="{{ t.description }}">
-                </td>
-                <td class="px-4 py-2">
-                    <input type="number" step="0.01" class="form-input border-gray-300 rounded w-full text-xs py-1 px-2" value="{{ '%.2f'|format(t.amount) }}">
-                </td>
-                <td class="px-4 py-2">
-                    <button onclick="saveRow({{ t.id }})" class="bg-primary text-white text-xs px-3 py-1 rounded hover:bg-primary-dark transition">
-                        Save
-                    </button>
-                </td>
-            </tr>
-            {% else %}
-            <tr>
-                <td colspan="6" class="text-center text-gray-500 py-4 text-sm">No transactions found.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<!-- Scroll Hint (Mobile Only) -->
+<p class="text-xs text-gray-400 md:hidden mb-2">Scroll sideways to view more columns</p>
+
+<!-- Save All Button -->
+<div class="mb-2 flex justify-end">
+  <button onclick="saveAllRows()" class="bg-primary text-white text-xs px-4 py-1.5 rounded hover:bg-primary-dark transition">
+    💾 Save All
+  </button>
 </div>
 
-<!-- Fancy Toast Notification (Top-Center) -->
+<!-- Responsive Table Wrapper -->
+<div class="w-full overflow-x-auto scroll-smooth touch-auto rounded shadow border border-gray-200 bg-white">
+  <table class="min-w-[800px] md:min-w-full divide-y divide-gray-100 text-sm">
+    <thead class="bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase sticky top-0 z-10">
+      <tr>
+        <th class="px-3 py-2 whitespace-nowrap">Date</th>
+        <th class="px-3 py-2 whitespace-nowrap">Type</th>
+        <th class="px-3 py-2 whitespace-nowrap hidden sm:table-cell">Credit Type</th>
+        <th class="px-3 py-2 whitespace-nowrap">Category</th>
+        <th class="px-3 py-2 whitespace-nowrap hidden sm:table-cell">Description</th>
+        <th class="px-3 py-2 whitespace-nowrap">Amount</th>
+        <th class="px-3 py-2 whitespace-nowrap">Action</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-100">
+      {% for t in transactions %}
+      <tr data-id="{{ t.id }}" class="hover:bg-gray-50">
+        <td class="px-3 py-2 whitespace-nowrap">
+          <input type="date" class="form-input w-full text-xs py-1 px-2" value="{{ t.date }}">
+        </td>
+        <td class="px-3 py-2 whitespace-nowrap">
+          <select class="form-select w-full text-xs py-1 px-2 type-selector">
+            <option value="income" {% if t.type == 'income' %}selected{% endif %}>Income</option>
+            <option value="expense" {% if t.type == 'expense' %}selected{% endif %}>Expense</option>
+          </select>
+        </td>
+        <td class="px-3 py-2 whitespace-nowrap hidden sm:table-cell">
+          <select class="form-select w-full text-xs py-1 px-2 credit-type-selector">
+            <option value="debit" {% if t.credit_type == 'debit' %}selected{% endif %}>Debit</option>
+            <option value="credit" {% if t.credit_type == 'credit' %}selected{% endif %}>Credit</option>
+          </select>
+        </td>
+        <td class="px-3 py-2 whitespace-nowrap">
+          <input type="text" class="form-input w-full text-xs py-1 px-2" value="{{ t.category }}">
+        </td>
+        <td class="px-3 py-2 whitespace-nowrap hidden sm:table-cell">
+          <input type="text" class="form-input w-full text-xs py-1 px-2" value="{{ t.description }}">
+        </td>
+        <td class="px-3 py-2 whitespace-nowrap">
+          <input type="number" step="0.01" class="form-input w-full text-xs py-1 px-2" value="{{ '%.2f'|format(t.amount) }}">
+        </td>
+        <td class="px-3 py-2 whitespace-nowrap">
+          <button onclick="saveRow({{ t.id }})"
+                  class="bg-primary text-white text-xs px-3 py-1 rounded hover:bg-primary-dark transition">
+            Save
+          </button>
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="7" class="text-center text-gray-500 py-4 text-sm">No transactions found.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!-- Fancy Toast Notification -->
 <div id="toast" class="fixed top-6 left-1/2 transform -translate-x-1/2 px-6 py-3 bg-green-600 text-white rounded shadow-lg text-sm font-semibold z-50 hidden animate-slide-fade-in">
     ✅ Changes saved!
 </div>
 
 <style>
 @keyframes slideFadeIn {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
+  0% { opacity: 0; transform: translate(-50%, -20px); }
+  100% { opacity: 1; transform: translate(-50%, 0); }
 }
-
 @keyframes slideFadeOut {
-  0% {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -20px);
-  }
+  0% { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, -20px); }
 }
-
 .animate-slide-fade-in {
   animation: slideFadeIn 0.4s ease-out forwards;
 }
-
 .animate-slide-fade-out {
   animation: slideFadeOut 0.4s ease-in forwards;
+}
+.changed-row {
+  animation: flashChange 0.8s ease-out;
+}
+@keyframes flashChange {
+  from { background-color: #fef3c7; }
+  to { background-color: transparent; }
 }
 </style>
 

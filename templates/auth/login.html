@@ -23,6 +23,7 @@ ExpenseManager{% endblock %} {% block content %}
 
   <!-- ✅ START FORM HERE -->
   <form method="post" action="/auth/login" autocomplete="on">
+    {{ form.csrf_token }}
     <div class="form-group">
       <label for="email" class="form-label">Email</label>
       <input

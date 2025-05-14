@@ -1,4 +1,4 @@
-// 格式化货币金额
+// currency formatter
 function formatCurrency(amount) {
   return new Intl.NumberFormat("en-AU", {
     style: "currency",
@@ -6,15 +6,15 @@ function formatCurrency(amount) {
   }).format(amount);
 }
 
-// 格式化百分比变化
+// percentage change formatter
 function formatPercentageChange(change) {
   const sign = change >= 0 ? "+" : "";
   return `${sign}${change.toFixed(1)}%`;
 }
 
-// 更新财务概览卡片
+// update financial overview cards
 function updateFinancialOverview(data) {
-  // 更新收入卡片
+  // update income card
   document.getElementById("monthly-income-amount").textContent = formatCurrency(
     data.income.amount
   );
@@ -32,7 +32,7 @@ function updateFinancialOverview(data) {
     <span class="text-gray-500">Compared to last month</span>
   `;
 
-  // 更新支出卡片
+  // update expenses card
   document.getElementById("monthly-expenses-amount").textContent =
     formatCurrency(data.expenses.amount);
 
@@ -50,7 +50,7 @@ function updateFinancialOverview(data) {
     <span class="text-gray-500">Compared to last month</span>
   `;
 
-  // 更新余额卡片
+  // update balance card
   document.getElementById("monthly-balance-amount").textContent =
     formatCurrency(data.balance.amount);
 
@@ -69,7 +69,7 @@ function updateFinancialOverview(data) {
   `;
 }
 
-// 获取财务概览数据
+// fetch financial overview data
 function fetchFinancialOverview() {
   console.log("正在获取财务概览数据...");
   fetch("/api/financial-overview")
@@ -87,7 +87,7 @@ function fetchFinancialOverview() {
     });
 }
 
-// 更新最近交易记录
+// update recent transactions
 function updateRecentTransactions(transactions) {
   const transactionsTable = document.getElementById(
     "recent-transactions-table"
@@ -97,15 +97,15 @@ function updateRecentTransactions(transactions) {
     return;
   }
 
-  // 清空现有内容
+  // clear existing content
   transactionsTable.innerHTML = "";
 
-  // 限制显示前5条记录
+  // limit to display top 5 records
   const displayTransactions = transactions.slice(0, 10);
 
-  // 为每条交易记录创建表格行
+  // create table rows for each transaction
   displayTransactions.forEach((transaction) => {
-    // 根据交易类型和分类选择适当的图标和背景色
+    // select appropriate icon and background color based on transaction type and category
     let iconClass, bgColor;
 
     if (transaction.type === "income") {
@@ -142,12 +142,12 @@ function updateRecentTransactions(transactions) {
       }
     }
 
-    // 金额格式和样式
+    // amount format and style
     const amountPrefix = transaction.type === "income" ? "+" : "-";
     const amountColor =
       transaction.type === "income" ? "text-green-600" : "text-red-600";
 
-    // 创建表格行
+    // create table row
     const row = document.createElement("tr");
     row.innerHTML = `
       <td class="px-6 py-4 whitespace-nowrap">
@@ -173,7 +173,7 @@ function updateRecentTransactions(transactions) {
   });
 }
 
-// 页面加载时获取数据
+// get data when page loads
 document.addEventListener("DOMContentLoaded", fetchFinancialOverview);
-// 每5分钟更新一次数据
+// update data every 5 minutes
 setInterval(fetchFinancialOverview, 5 * 60 * 1000);

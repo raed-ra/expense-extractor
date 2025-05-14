@@ -24,6 +24,7 @@ def create_app():
     # Register routes
     register_routes(app)
 
+
     # Setup DB teardown and CLI
     init_app(app)
 

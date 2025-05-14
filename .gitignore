@@ -405,6 +405,5 @@ env-zhongyi/
 __pycache__/
 gpt_outputs/
 
-
-
+# Add your database file here
 expensemanager.db

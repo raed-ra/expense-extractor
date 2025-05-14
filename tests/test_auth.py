@@ -1,5 +1,5 @@
 """
-测试登录功能
+test auth function
 """
 import unittest
 from models import User

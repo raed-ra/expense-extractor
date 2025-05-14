@@ -7,6 +7,7 @@ import os
 from db import Base, engine, init_app, get_db
 from models import User, Transaction, Upload, SharedReport, SharedView
 from flask import g, request
+from flask import render_template
 
 load_dotenv()
 
@@ -22,6 +23,7 @@ def create_app():
 
     # Register routes
     register_routes(app)
+
 
     # Setup DB teardown and CLI
     init_app(app)
@@ -47,6 +49,17 @@ def create_app():
         #return 'Welcome! Go to <a href="/auth/login">Login</a> or <a href="/auth/register">Register</a>'
         return redirect(url_for('auth.login'))
     
+    # Register error handlers
+    @app.errorhandler(404)
+    def page_not_found(e):
+        
+        return render_template('errors/404.html'), 404
+
+    @app.errorhandler(500)
+    def internal_server_error(e):
+        
+        return render_template('errors/500.html'), 500
+    
     return app
 
 @login_manager.user_loader
@@ -58,7 +71,6 @@ def load_user(user_id):
 if not os.path.exists("expensemanager.db"):
     print("🔧 Creating database and tables...")
     Base.metadata.create_all(bind=engine)
-    
     
 app = create_app()
 

@@ -7,6 +7,30 @@
 <!-- Scroll Hint (Mobile Only) -->
 <p class="text-xs text-gray-400 md:hidden mb-2">Scroll sideways to view more columns</p>
 
+<form method="GET" class="mb-4 flex flex-wrap items-center gap-2 text-sm">
+  <!-- Date filters -->
+  <label for="start" class="text-gray-700">From:</label>
+  <input type="date" id="start" name="start" value="{{ request.args.get('start', '') }}" class="form-input px-2 py-1 border rounded text-sm">
+
+  <label for="end" class="text-gray-700">To:</label>
+  <input type="date" id="end" name="end" value="{{ request.args.get('end', '') }}" class="form-input px-2 py-1 border rounded text-sm">
+
+  <!-- Type filter -->
+  <label for="type" class="text-gray-700">Type:</label>
+  <select name="type" id="type" class="form-select px-2 py-1 border rounded text-sm">
+    <option value="">All</option>
+    <option value="income" {% if request.args.get('type') == 'income' %}selected{% endif %}>Income</option>
+    <option value="expense" {% if request.args.get('type') == 'expense' %}selected{% endif %}>Expense</option>
+  </select>
+
+  <button type="submit" class="bg-primary text-white px-4 py-1 rounded hover:bg-primary-dark transition">Filter</button>
+
+  {% if request.args.get('start') or request.args.get('end') or request.args.get('type') %}
+  <a href="{{ url_for('flow.index') }}" class="ml-2 text-gray-500 hover:text-red-500 text-xs underline">Clear</a>
+  {% endif %}
+</form>
+
+
 <!-- Save All Button -->
 <div class="mb-2 flex justify-end">
   <button onclick="saveAllRows()" class="bg-primary text-white text-xs px-4 py-1.5 rounded hover:bg-primary-dark transition">

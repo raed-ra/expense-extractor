@@ -50,7 +50,7 @@ def build_filtered_query(db, user, params):
         query = query.filter(Transaction.category == category)
 
     if txn_type and txn_type != '__all__':
-        query = query.filter(Transaction.type == txn_type)
+        query = query.filter(Transaction.credit_type == txn_type)
 
     if amount_filter:
         try:
@@ -74,7 +74,7 @@ def report_data():
     print("🔍 Incoming filter params:", params)
     query = build_filtered_query(db, current_user, params)
     results = query.order_by(Transaction.date).all()
-    print(f"📦 Found {len(results)} transactions for user {current_user.email}")
+    print(f"📦 Found {len(results)} transactions for user {current_user.email} is {results}")
     
     # ✅ Mark shared reports as viewed if data belongs to a shared owner
     owner_id = params.get('owner_id')
@@ -98,7 +98,7 @@ def report_data():
         "date": t.date.isoformat(),
         "description": t.description,
         "amount": t.amount,
-        "type": t.type,
+        "type": t.credit_type,
         "category": t.category
     } for t in results])
 

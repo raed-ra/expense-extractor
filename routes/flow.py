@@ -11,11 +11,35 @@ flow_bp = Blueprint('flow', __name__, url_prefix='/flow')
 @login_required
 def index():
     db = get_db()
-    transactions = db.query(Transaction).filter_by(user_id=g.user.id).order_by(Transaction.date.desc()).all()
+    start = request.args.get('start')
+    end = request.args.get('end')
+    txn_type = request.args.get('type')
+
+    query = db.query(Transaction).filter_by(user_id=g.user.id)
+
+    if start:
+        try:
+            start_date = datetime.strptime(start, "%Y-%m-%d").date()
+            query = query.filter(Transaction.date >= start_date)
+        except ValueError:
+            pass
+
+    if end:
+        try:
+            end_date = datetime.strptime(end, "%Y-%m-%d").date()
+            query = query.filter(Transaction.date <= end_date)
+        except ValueError:
+            pass
+
+    if txn_type in ('income', 'expense'):
+        query = query.filter(Transaction.type == txn_type)
+
+    transactions = query.order_by(Transaction.date.desc()).all()
+
     return render_template(
         'main/flow.html',
         transactions=transactions,
-        active_page='flow' 
+        active_page='flow'
     )
 
 @flow_bp.route('/<int:transaction_id>/edit', methods=['POST'])

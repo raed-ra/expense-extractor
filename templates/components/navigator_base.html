@@ -46,9 +46,12 @@
                     <i class="fas fa-chevron-down text-gray-500 text-xs"></i>
                   </button>
                   <div class="user-dropdown-content absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-10 hidden">
-                    <div class="px-4 py-2 border-b border-gray-100">
-                      <p class="text-sm font-medium text-gray-700">{{ g.user.username }}</p>
-                    </div>
+                    <a href="{{ url_for('home.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                      <i class="fas fa-home mr-2 text-primary"></i> Home
+                    </a>
+                    <a href="{{ url_for('public.public_sharing') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                      <i class="fas fa-share-alt mr-2 text-primary"></i> Sharing Area
+                    </a>
                     <div class="border-t border-gray-100 my-1"></div>
                     <a href="{{ url_for('auth.logout') }}" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
                       <i class="fas fa-sign-out-alt mr-2"></i> Logout
@@ -71,12 +74,6 @@
               </div>
             </div>
           </nav>
-
-          <!-- Mobile Menu -->
-          <div id="mobile-menu" class="md:hidden hidden mt-3 space-y-2">
-            <a href="{{ url_for('home.index') }}" class="block text-gray-700 hover:text-primary font-medium">Home</a>
-            <a href="{{ url_for('public.public_sharing') }}" class="block text-gray-700 hover:text-primary font-medium">Sharing Area</a>
-          </div>
         </div>
       </header>
 
@@ -93,19 +90,8 @@
       </footer>
     </div>
 
-    <!-- Mobile menu toggle -->
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        const toggleBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        if (toggleBtn && mobileMenu) {
-          toggleBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-          });
-        }
-      });
-    </script>
+    <!-- Toggle script -->
+    <script src="{{ url_for('static', filename='js/navigator.js') }}"></script>
 
     {% block scripts %}{% endblock %}
   </body>

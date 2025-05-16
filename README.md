@@ -76,4 +76,12 @@ Default access: [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
 ## Additional Notes
 
 - To reset the database, simply delete the `expensemanager.db` file and restart the project to auto-recreate it.
-- For more features and usage, please refer to the source code of each module. 
+- For more features and usage, please refer to the source code of each module.
+
+## Resources and References
+1. Grinberg, M. (n.d.). The Flask mega-tutorial, part I: Hello world. Miguel Grinberg's Blog. https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
+2. Flask Documentation. (n.d.). Configuration. Flask. https://flask.palletsprojects.com/en/stable/config/
+3. W3Schools. (n.d.). CSS Tutorial. W3Schools. https://www.w3schools.com/css/default.asp
+4. OpenAI. (n.d.). ChatGPT. https://chatgpt.com/
+5. GitHub Documentation. (n.d.). GitHub Docs. GitHub. https://docs.github.com/
+6. Lecture notes and textbook.

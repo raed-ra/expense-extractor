@@ -10,6 +10,17 @@ A modern personal finance management system built with Flask. Supports secure us
 
 ---
 
+## 👥 Group Members
+
+| Name               | Student ID |
+| ------------------ | ---------- |
+| Su-Yeon Yang       | 24650461   |
+| Jeffrey Wan        | 23936657   |
+| Raed Rahmanseresht | 21016839   |
+| Zhongyi Shi        | 24254652   |
+
+---
+
 ## ✨ Features
 
 - 🔐 User Authentication (Login/Register)
@@ -24,41 +35,120 @@ A modern personal finance management system built with Flask. Supports secure us
 
 ```
 ExpenseManager/
-├── app.py                  # Main Flask application entry point
-├── db.py                   # Database configuration
-├── models/                 # Data models
-├── routes/                 # Route modules (user, report, upload, etc.)
-│   ├── home.py
-│   ├── record.py
-│   ├── report.py
-│   ├── upload.py
-│   ├── api.py
-│   └── auth/               # Authentication-related routes
-├── templates/              # Frontend templates
-│   ├── components/         # Base templates
-│   ├── errors/             # Error page templates
-│   ├── auth/               # Login and registration templates
-│   ├── main/               # Main feature page templates
-│   └── partials/           # Partial templates
-├── static/                 # Static resources (CSS/JS/images)
-├── requirements.txt        # Python dependencies
-├── alembic.ini             # Alembic config (DB migration)
-├── migrations/             # Database migration scripts
-├── seed.py                 # Initialization/test data script
-└── README.md
+├── app.py                      # Main Flask application entry point, configures the app and starts the server
+├── db.py                       # Database configuration and connection management
+├── seed.py                     # Initialization/test data script for populating the database
+├── requirements.txt            # Python dependencies list
+├── alembic.ini                 # Alembic configuration (database migration tool)
+├── .gitignore                  # Git ignore file configuration
+├── expensemanager.db           # SQLite database file
+├── README.md                   # Project documentation
+│
+├── models/                     # Data models directory
+│   ├── __init__.py             # Models initialization file
+│   ├── user.py                 # User data model
+│   ├── transaction.py          # Transaction data model
+│   ├── upload.py               # File upload model
+│   ├── shared_report.py        # Shared report model
+│   ├── shared_view.py          # Shared view model
+│   └── blog.py                 # Blog-related model
+│
+├── routes/                     # Route modules directory
+│   ├── __init__.py             # Routes initialization file
+│   ├── home.py                 # Homepage route
+│   ├── index.py                # Index page route
+│   ├── record.py               # Record management route
+│   ├── report.py               # Report generation and display route
+│   ├── upload.py               # File upload processing route
+│   ├── api.py                  # API interface route
+│   ├── flow.py                 # Cash flow route
+│   └── auth/                   # Authentication-related routes directory
+│       ├── __init__.py         # Auth routes initialization file
+│       ├── login.py            # Login authentication route
+│       └── oauth.py            # OAuth authentication route
+│
+├── services/                   # Services layer directory
+│   ├── chatgpt_service.py      # ChatGPT integration service
+│   └── pdf_service.py          # PDF processing service
+│
+├── helpers/                    # Helper utilities directory
+│   ├── parse.py                # Data parsing tools
+│   └── prompt.py               # Prompt generation tools
+│
+├── templates/                  # Frontend templates directory
+│   ├── components/             # Base component templates
+│   ├── errors/                 # Error page templates
+│   ├── auth/                   # Login and registration templates
+│   ├── main/                   # Main feature page templates
+│   └── partials/               # Partial view templates
+│
+├── static/                     # Static resources directory
+│   ├── css/                    # Stylesheet files
+│   ├── js/                     # JavaScript files
+│   └── img/                    # Image resources
+│
+├── migrations/                 # Database migration scripts directory
+├── uploads/                    # User uploaded files storage directory
+├── extracted_texts/            # Directory for texts extracted from uploaded files
+└── gpt_outputs/                # Directory for ChatGPT generated content outputs
 ```
+
+## Main File Function Description
+
+1. **Core Files**
+
+   - `app.py` - Application main entry, configures Flask application and starts the Web server
+   - `db.py` - Database connection and session management, initializes SQLAlchemy
+   - `seed.py` - Generates test data for development and demonstration environments
+
+2. **Data Models**
+
+   - `models/user.py` - User account model, contains authentication and personal information
+   - `models/transaction.py` - Transaction record model, stores user income and expense data
+   - `models/upload.py` - File upload model, manages records of user uploaded files
+   - `models/shared_report.py` - Shared report model, allows users to share reports with others
+
+3. **Route Controllers**
+
+   - `routes/home.py` - Homepage and dashboard views
+   - `routes/record.py` - CRUD operations for transaction records
+   - `routes/report.py` - Financial report generation and data analysis
+   - `routes/upload.py` - Processes user file uploads and data imports
+   - `routes/auth/login.py` - User authentication and session management
+   - `routes/api.py` - Provides RESTful API interfaces
+
+4. **Services Layer**
+
+   - `services/chatgpt_service.py` - Integrates ChatGPT for intelligent analysis and suggestions
+   - `services/pdf_service.py` - PDF file processing and data extraction services
+
+5. **Helper Utilities**
+   - `helpers/parse.py` - Data parsing tools, processes different input formats
+   - `helpers/prompt.py` - ChatGPT prompt templates and generation tools
+
+✅ Cross-Browser Compatibility Test Results
+
+| Browser        | Version Tested | OS        | Result    | Notes                |
+| -------------- | -------------- | --------- | --------- | -------------------- |
+| Chrome         | 123+           | macOS/Win | ✅ Passed | All features work    |
+| Firefox        | 115+           | macOS/Win | ✅ Passed | Minor CSS difference |
+| Safari         | 16+            | macOS     | ✅ Passed | Works fine           |
+| Microsoft Edge | 120+           | Windows   | ✅ Passed | No issue             |
+| Opera          | 100+           | Windows   | ✅ Passed |                      |
 
 ---
 
 ## ⚙️ Environment Setup
 
 ### 1. Clone the Repository
+
 ```bash
 git clone https://github.com/your-username/ExpenseManager.git
 cd ExpenseManager
 ```
 
 ### 2. Create Virtual Environment and Install Dependencies
+
 ```bash
 python -m venv venv
 source venv/bin/activate  # For macOS/Linux
@@ -68,6 +158,7 @@ pip install -r requirements.txt
 ```
 
 ### 3. Initialize the Database
+
 ```bash
 # Method 1: Auto-create on first Flask run
 python app.py
@@ -80,6 +171,7 @@ alembic upgrade head
 ```
 
 ### 4. Seed Test Data
+
 ```bash
 python seed.py
 ```
@@ -87,6 +179,7 @@ python seed.py
 ---
 
 ## ▶️ Run the App
+
 ```bash
 python app.py
 # or
@@ -112,6 +205,7 @@ http://127.0.0.1:5000/
 ## 🔁 Reset the Database
 
 To reset:
+
 ```bash
 flask delete-db
 python app.py
@@ -126,11 +220,12 @@ python app.py
 - [Flask Mega-Tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
 - [Flask Documentation](https://flask.palletsprojects.com/)
 - [W3Schools CSS](https://www.w3schools.com/css/)
-- [OpenAI ChatGPT](https://chatgpt.com/)
 - [GitHub Docs](https://docs.github.com/)
 - Lecture notes and textbook.
+- [OpenAI ChatGPT (GPT-4o, GPT-3.5/4, ChatGPT)](https://chat.openai.com/) — Used for code explanation, test design, and debugging assistance.
+- [Anthropic Claude (Claude 3.5 Sonnet)](https://www.anthropic.com/index/claude) — Referenced for implementation reasoning and feedback drafting.
+- [Google Gemini (Gemini 1.5 / 2.5 Pro)](https://deepmind.google/technologies/gemini/) — Used for architectural suggestions and code review support.
 
 ---
 
 _Last updated: 2025-05-16_
-

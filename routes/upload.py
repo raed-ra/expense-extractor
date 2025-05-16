@@ -28,21 +28,23 @@ def upload():
     if request.method == 'POST':
         file = request.files.get('pdf_file')
         if not file:
-            flash("No file selected", "danger")
-            return redirect(request.url)
+            return "No file selected", 400  # Return error for AJAX
 
         filename = secure_filename(file.filename)
         pdf_path = os.path.join(UPLOAD_FOLDER, filename)
         file.save(pdf_path)
 
+        # 1. Extract text from PDF
         extracted_text = extract_text_from_pdf(pdf_path)
         base_name = os.path.splitext(filename)[0]
         txt_path = os.path.join(EXTRACTED_FOLDER, f"{base_name}.txt")
         with open(txt_path, 'w') as f:
             f.write(extracted_text)
 
+        # 2. Send to GPT
         prompt = build_prompt(extracted_text)
-        gpt_response = send_to_chatgpt(prompt,user_id=current_user.id)
+        user_id = getattr(current_user, 'id', 1)  # fallback to user ID 1 if not logged in - done for testing
+        gpt_response = send_to_chatgpt(prompt, user_id=user_id)
         unique_categories = sorted(list({item.get('category', 'Uncategorized') for item in gpt_response}))
         timestamp = datetime.utcnow().strftime('%Y%m%d%H%M%S')
         gpt_filename = f"{base_name}_{timestamp}.json"
@@ -50,6 +52,7 @@ def upload():
         with open(gpt_path, 'w') as f:
             json.dump(gpt_response, f, indent=2)
 
+        # 3. Return full HTML to the frontend
         return render_template('main/upload.html',
                                active_page='upload',
                                extracted_json=gpt_response,
@@ -57,7 +60,8 @@ def upload():
                                filename=filename,
                                categories=unique_categories)
 
-    return render_template('main/upload.html', active_page='upload',categories=[])
+    # GET fallback: show just the upload form
+    return render_template('main/upload.html', active_page='upload', categories=[])
 
 
 @upload_bp.route('/edit-upload', methods=['POST'])
@@ -94,7 +98,7 @@ def edit_upload():
                 date=parsed_date,
                 description=item['description'].strip(),
                 amount=amount,
-                type=item['type']
+                credit_type=item.get('credit_type')
             ).first()
 
             if existing_transaction:
@@ -106,7 +110,7 @@ def edit_upload():
                 amount=amount,
                 category=item.get('category', 'Uncategorized'),
                 date=parsed_date,
-                type=item['type'],
+                credit_type=item.get('credit_type'),
                 user_id=current_user.id,   # ✅ Fix for current error
                 #upload_id=upload.id # here we use the upload ID from the upload object to associate the transaction
             )
@@ -122,6 +126,47 @@ def edit_upload():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+@upload_bp.route('/test-upload', methods=['GET', 'POST'])
+def test_upload_no_auth():
+    if request.method == 'POST':
+        file = request.files.get('pdf_file')
+        if not file:
+            return "No file selected", 400
+
+        filename = secure_filename(file.filename)
+        pdf_path = os.path.join(UPLOAD_FOLDER, filename)
+        file.save(pdf_path)
+
+        extracted_text = extract_text_from_pdf(pdf_path)
+        base_name = os.path.splitext(filename)[0]
+        txt_path = os.path.join(EXTRACTED_FOLDER, f"{base_name}.txt")
+        with open(txt_path, 'w') as f:
+            f.write(extracted_text)
+
+        prompt = build_prompt(extracted_text)
+        gpt_response = send_to_chatgpt(prompt, user_id=1)  # dummy user ID for testing
+
+        unique_categories = sorted(list({item.get('category', 'Uncategorized') for item in gpt_response}))
+        timestamp = datetime.utcnow().strftime('%Y%m%d%H%M%S')
+        gpt_filename = f"{base_name}_{timestamp}.json"
+        gpt_path = os.path.join(GPT_OUTPUT_FOLDER, gpt_filename)
+        with open(gpt_path, 'w') as f:
+            json.dump(gpt_response, f, indent=2)
+
+        return render_template('main/upload.html',
+                               active_page='upload',
+                               extracted_json=gpt_response,
+                               gpt_filename=gpt_filename,
+                               filename=filename,
+                               categories=unique_categories,
+                               test_mode=True)
+
+    # GET request
+    return render_template('main/upload.html', active_page='upload', categories=[])
+
+    
+
     # g is an object and imported from flask
     # every web request creates a new g object and behaves like a global variable which is a python dictionary
     # g.db is a database session which is stored as db 

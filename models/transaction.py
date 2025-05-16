@@ -9,7 +9,7 @@ class Transaction(Base):
     id = Column(Integer, primary_key=True)
 
     # Main fields
-    type = Column(String(20), nullable=False)               # 'income' or 'expense'
+    type = Column(String(20), nullable=True)               # 'income' or 'expense'
     credit_type = Column(String(20), nullable=True)        # 'debit' or 'credit'
     amount = Column(Numeric(10, 2), nullable=False)         # Monetary value with 2 decimal places
     category = Column(String(50), nullable=True)            # Free-text category

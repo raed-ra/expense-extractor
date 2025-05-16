@@ -90,7 +90,7 @@ $(document).ready(function () {
                 description: row.find('input[type="text"]').eq(0).val(),
                 amount: parseFloat(row.find('input[type="number"]').val()),
                 // use .eq(0) because later in the same row you also have a second <input type="text"> — for custom category input — and you don’t want that one here.
-                type: row.find('select').eq(0).val(), //.eq(0) ensures we’re not accidentally getting the category dropdown.
+                credit_type: row.find('select').eq(0).val(), //.eq(0) ensures we’re not accidentally getting the category dropdown.
                 category: category,
                 //filename: $('strong').text()  // filename shown in alert div
             };

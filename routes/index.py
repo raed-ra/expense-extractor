@@ -8,14 +8,14 @@ home = Blueprint('home', __name__)
 
 @home.route('/api/financial-overview')
 def get_financial_overview():
-    # 获取当前日期
+    # get date
     today = datetime.now()
-    # 获取本月第一天
+    # get first day of month
     first_day_of_month = today.replace(day=1)
-    # 获取上个月第一天
+    # get first day of last month
     first_day_of_last_month = (first_day_of_month - timedelta(days=1)).replace(day=1)
     
-    # 获取本月收入
+    # get current month income
     current_month_income = db.session.query(
         func.sum(Transaction.amount)
     ).filter(
@@ -23,7 +23,7 @@ def get_financial_overview():
         Transaction.date >= first_day_of_month.date()
     ).scalar() or 0
     
-    # 获取本月支出
+    # get current month expenses
     current_month_expenses = db.session.query(
         func.sum(Transaction.amount)
     ).filter(
@@ -31,7 +31,7 @@ def get_financial_overview():
         Transaction.date >= first_day_of_month.date()
     ).scalar() or 0
     
-    # 获取上月收入
+    # get last month income
     last_month_income = db.session.query(
         func.sum(Transaction.amount)
     ).filter(
@@ -40,7 +40,7 @@ def get_financial_overview():
         Transaction.date < first_day_of_month.date()
     ).scalar() or 0
     
-    # 获取上月支出
+    # get last month expenses
     last_month_expenses = db.session.query(
         func.sum(Transaction.amount)
     ).filter(
@@ -49,11 +49,11 @@ def get_financial_overview():
         Transaction.date < first_day_of_month.date()
     ).scalar() or 0
     
-    # 计算本月余额
+    # calculate current month balance
     current_month_balance = current_month_income - current_month_expenses
     last_month_balance = last_month_income - last_month_expenses
     
-    # 计算环比变化
+    # calculate month-over-month change
     income_change = ((current_month_income - last_month_income) / last_month_income * 100) if last_month_income else 0
     expenses_change = ((current_month_expenses - last_month_expenses) / last_month_expenses * 100) if last_month_expenses else 0
     balance_change = ((current_month_balance - last_month_balance) / last_month_balance * 100) if last_month_balance else 0

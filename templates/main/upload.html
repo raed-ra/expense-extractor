@@ -13,7 +13,11 @@
 
 
 <!-- Upload Form -->
-<form id="uploadForm" enctype="multipart/form-data" class="mb-6">
+<form id="uploadForm"
+      action="{{ '/upload/test-upload' if test_mode else '/upload' }}"
+      method="POST"
+      enctype="multipart/form-data"
+      class="mb-6">
     <input type="file" name="pdf_file" class="form-control mb-2" accept="application/pdf" required {% if extracted_json %}disabled{% endif %}>
     <button type="submit" class="btn btn-primary" {% if extracted_json %}disabled{% endif %}>Upload</button>
 </form>

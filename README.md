@@ -1,8 +1,26 @@
-# ExpenseManager
+# 💸 ExpenseManager
 
-ExpenseManager is a modern personal finance management system that supports user registration, login, transaction recording, report analysis, data upload, and sharing.
+A modern personal finance management system built with Flask. Supports secure user registration and login, transaction tracking, report generation, file uploads, and sharing with others.
 
-## Project Structure
+![Python](https://img.shields.io/badge/Python-3.8-blue?logo=python)
+![Flask](https://img.shields.io/badge/Flask-2.x-black?logo=flask)
+[![License](https://img.shields.io/github/license/Jeffrey86Wan/CITS5505_Group48)](https://github.com/Jeffrey86Wan/CITS5505_Group48/blob/main/LICENSE)
+![Issues](https://img.shields.io/github/issues/Jeffrey86Wan/CITS5505_Group48)
+![Last Commit](https://img.shields.io/github/last-commit/Jeffrey86Wan/CITS5505_Group48)
+
+---
+
+## ✨ Features
+
+- 🔐 User Authentication (Login/Register)
+- 📁 Upload PDF bank statements
+- 🤖 GPT-based expense categorization
+- 📊 Visual and downloadable reports
+- 📤 Share reports with other users
+
+---
+
+## 📁 Project Structure
 
 ```
 ExpenseManager/
@@ -30,63 +48,89 @@ ExpenseManager/
 └── README.md
 ```
 
-## Environment Setup
+---
 
-1. **Clone the repository**
-   ```bash
-   git clone <your-repo-url>
-   cd ExpenseManager
-   ```
+## ⚙️ Environment Setup
 
-2. **Create a virtual environment and install dependencies**
-   ```bash
-   python -m venv venv
-   # Windows
-   venv\Scripts\activate
-   # macOS/Linux
-   source venv/bin/activate
+### 1. Clone the Repository
+```bash
+git clone https://github.com/your-username/ExpenseManager.git
+cd ExpenseManager
+```
 
-   pip install -r requirements.txt
-   ```
+### 2. Create Virtual Environment and Install Dependencies
+```bash
+python -m venv venv
+source venv/bin/activate  # For macOS/Linux
+venv\Scripts\activate   # For Windows
 
-3. **Initialize the database**
-   - **Method 1: Auto-initialize**  
-     The database and tables will be created automatically when you start Flask for the first time.
-   - **Method 2: Using Flask CLI command (if registered)**  
-     ```bash
-     flask init-db
-     ```
-   - **Method 3: Using Alembic migration (if migration scripts exist)**  
-     ```bash
-     alembic upgrade head
-     ```
+pip install -r requirements.txt
+```
 
-4. **Seed real database with test data script**
-    ```bash
-     python3 seed.py
-     ```
+### 3. Initialize the Database
+```bash
+# Method 1: Auto-create on first Flask run
+python app.py
 
-## Run the Project
+# Method 2: Use Flask CLI
+flask init-db
 
+# Method 3: Alembic migrations
+alembic upgrade head
+```
+
+### 4. Seed Test Data
+```bash
+python seed.py
+```
+
+---
+
+## ▶️ Run the App
 ```bash
 python app.py
-```
-or
-```bash
+# or
 flask run
 ```
 
-Default access: [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
+---
 
-## Additional Notes
-- To reset the database, simply delete the `expensemanager.db` file and restart the project to auto-recreate it.
-- For more features and usage, please refer to the source code of each module.
+## 🌐 Default URL
 
-## Resources and References
-1. Grinberg, M. (n.d.). The Flask mega-tutorial, part I: Hello world. Miguel Grinberg's Blog. https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
-2. Flask Documentation. (n.d.). Configuration. Flask. https://flask.palletsprojects.com/en/stable/config/
-3. W3Schools. (n.d.). CSS Tutorial. W3Schools. https://www.w3schools.com/css/default.asp
-4. OpenAI. (n.d.). ChatGPT. https://chatgpt.com/
-5. GitHub Documentation. (n.d.). GitHub Docs. GitHub. https://docs.github.com/
-6. Lecture notes and textbook.
+```
+http://127.0.0.1:5000/
+```
+
+---
+
+## 📸 Screenshots
+
+> ![alt text](image-3.png)![alt text](image-1.png)![alt text](image-2.png)
+
+---
+
+## 🔁 Reset the Database
+
+To reset:
+```bash
+flask delete-db
+python app.py
+```
+
+---
+
+## 📚 References
+
+- [Authentication Design Document (Google Doc)](https://docs.google.com/document/d/your-doc-id/edit)
+- Grinberg, M. — [Flask Mega-Tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
+- [Flask Mega-Tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)
+- [Flask Documentation](https://flask.palletsprojects.com/)
+- [W3Schools CSS](https://www.w3schools.com/css/)
+- [OpenAI ChatGPT](https://chatgpt.com/)
+- [GitHub Docs](https://docs.github.com/)
+- Lecture notes and textbook.
+
+---
+
+_Last updated: 2025-05-16_
 

@@ -61,6 +61,11 @@ ExpenseManager/
      alembic upgrade head
      ```
 
+4. **Seed real database with test data script**
+    ```bash
+     python3 seed.py
+     ```
+
 ## Run the Project
 
 ```bash

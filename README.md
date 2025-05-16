@@ -4,7 +4,7 @@ A modern personal finance management system built with Flask. Supports secure us
 
 ![Python](https://img.shields.io/badge/Python-3.8-blue?logo=python)
 ![Flask](https://img.shields.io/badge/Flask-2.x-black?logo=flask)
-[![License](https://img.shields.io/github/license/Jeffrey86Wan/CITS5505_Group48)](https://github.com/Jeffrey86Wan/CITS5505_Group48/blob/main/LICENSE)
+[![License](https://img.shields.io/github/license/Jeffrey86Wan/CITS5505_Group48?cacheSeconds=3600)](https://github.com/Jeffrey86Wan/CITS5505_Group48/blob/main/LICENSE)
 ![Issues](https://img.shields.io/github/issues/Jeffrey86Wan/CITS5505_Group48)
 ![Last Commit](https://img.shields.io/github/last-commit/Jeffrey86Wan/CITS5505_Group48)
 

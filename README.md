@@ -257,8 +257,8 @@ To enable OpenAI GPT-based categorization and Google login, follow these configu
 7. Click **Create**
 8. Download the config file and rename it to:
 
-```bash
-client_secrets.json
+```
+
 
 
 

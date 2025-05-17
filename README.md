@@ -198,7 +198,7 @@ http://127.0.0.1:5000/
 
 ## 📸 Screenshots
 
-> ![alt text](image-3.png)![alt text](image-1.png)![alt text](image-2.png)
+> ![alt text](ReadmeImages/image-3.png)![alt text](ReadmeImages/image-1.png)![alt text](ReadmeImages/image-2.png)
 
 ---
 
@@ -210,6 +210,57 @@ To reset:
 flask delete-db
 python app.py
 ```
+---
+
+## 🔐 Environment & Google OAuth Setup
+
+To run this application locally with full functionality (including login and OpenAI features), you'll need to create two configuration files: `.env` and `client_secrets.json`.
+
+To do that:
+
+In the **project root**, duplicate the provided example files:
+
+```bash
+cp .env.example .env
+cp client_secrets.example.json client_secrets.json
+
+<details>
+<summary>🔐 <strong>Environment & OAuth Setup Guide (.env & Google Credentials)</strong></summary>
+
+<br>
+
+To enable OpenAI GPT-based categorization and Google login, follow these configuration steps:
+
+---
+
+### 📌 Step 1: Get Your OpenAI API Key
+
+1. Visit: [OpenAI API Keys](https://platform.openai.com/account/api-keys)
+2. Log in and click **"Create new secret key"**
+3. Copy the key that looks like `sk-xxxxxxxxxxxxxxxxxxxx`
+4. Save it somewhere safe — you won’t see it again!
+
+---
+
+### 📌 Step 2: Create Google OAuth Credentials
+
+1. Go to the [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project (or use an existing one)
+3. Navigate to **APIs & Services → Credentials**
+4. Click **"Create Credentials" → "OAuth client ID"**
+5. Choose **Web application**
+6. Add the following:
+   - **Authorized redirect URI:**  
+     `http://127.0.0.1:5000/oauth2callback`
+   - **Authorized JavaScript origin:**  
+     `http://127.0.0.1:5000`
+7. Click **Create**
+8. Download the config file and rename it to:
+
+```bash
+client_secrets.json
+
+
 
 ---
 

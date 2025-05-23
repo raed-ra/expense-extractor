@@ -22,7 +22,7 @@ def send_to_chatgpt(prompt, user_id):
         raw_chunk = response.choices[0].message.content.strip()
 
     except openai.OpenAIError as e:
-        # ✅ Optional fallback in development mode
+        # Optional fallback in development mode
         if os.getenv("FLASK_ENV") == "development":
             print(f"[WARNING] GPT fallback due to error: {e}")
             return [{
@@ -36,16 +36,16 @@ def send_to_chatgpt(prompt, user_id):
 
     
 
-    # 📂 Create user-specific folder if needed
+    # Create user-specific folder if needed
     output_folder = os.path.join("user_data", f"user_{user_id}")
     os.makedirs(output_folder, exist_ok=True)
 
-    # 💾 Save raw GPT output
+    # Save raw GPT output
     raw_path = os.path.join(output_folder, "raw_chatgpt_response.txt")
     with open(raw_path, "w", encoding="utf-8") as f:
         f.write(raw_chunk)
 
-    # 🧹 Clean up response
+    # Clean up response - removes unnecessary characters and formats the JSON []{}
     first_bracket = raw_chunk.find('[')
     last_bracket = raw_chunk.rfind(']')
     if first_bracket != -1 and last_bracket != -1:
@@ -53,13 +53,16 @@ def send_to_chatgpt(prompt, user_id):
 
     raw_chunk = raw_chunk.replace("“", '"').replace("”", '"')
     raw_chunk = raw_chunk.replace("‘", "'").replace("’", "'").replace("`", "'")
+    
+    # Finds numbers like "amount": "1,234.56" and removes the commas, turning them into "amount": "1234.56".
     raw_chunk = re.sub(
         r'("amount"\s*:\s*")(\d{1,3}(,\d{3})+(\.\d+)?)(")',
         lambda m: f'{m.group(1)}{m.group(2).replace(",", "")}{m.group(5)}',
         raw_chunk
     )
 
-    # 🔁 Decode and enrich
+    # Decode and enrich Adds a "type" field (credit or debit) to each transaction: If the description contains 'direct debit' or the amount is negative → credit Otherwise → debit
+
     expenses_chunk = demjson3.decode(raw_chunk)
     for item in expenses_chunk:
         if 'direct debit' in item['description'].lower() or (item.get('amount') and float(item['amount']) < 0):

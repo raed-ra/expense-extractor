@@ -5,14 +5,14 @@
 {% block dashboard_content %}
 <h1 class="text-2xl font-bold mb-4">Upload Your Bank Statement (PDF)</h1>
 
-<!-- Loader and Status -->
+<!--Section1: Loader and Status -->
 <div id="statusLoader" class="alert alert-info d-none">
     <div class="spinner-border spinner-border-sm me-2" role="status"></div>
     <span id="statusMessage"></span> <!-- empty initially -->
 </div>
 
 
-<!-- Upload Form -->
+<!--Section2:  Upload Form Redundant since its taken care of in the upload_form.js-->
 <form id="uploadForm"
       action="{{ '/upload/test-upload' if test_mode else '/upload' }}"
       method="POST"
@@ -22,6 +22,7 @@
     <button type="submit" class="btn btn-primary" {% if extracted_json %}disabled{% endif %}>Upload</button>
 </form>
 
+<!--Section3:  Building table of received items -->
 {% if extracted_json %}
 <div class="alert alert-info">Showing parsed results for <strong>{{ filename }}</strong></div>
 <div id="messageArea"></div>

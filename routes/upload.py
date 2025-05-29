@@ -41,9 +41,9 @@ def upload():
         with open(txt_path, 'w') as f:
             f.write(extracted_text)
 
-        # 2. Send to GPT
+        # 2. Send to GPT - save the reponse to a JSON file
         prompt = build_prompt(extracted_text)
-        user_id = getattr(current_user, 'id', 1)  # fallback to user ID 1 if not logged in - done for testing
+        user_id = current_user.id  # Get the current user's ID
         gpt_response = send_to_chatgpt(prompt, user_id=user_id)
         unique_categories = sorted(list({item.get('category', 'Uncategorized') for item in gpt_response}))
         timestamp = datetime.utcnow().strftime('%Y%m%d%H%M%S')
@@ -68,19 +68,22 @@ def upload():
 @login_required
 def edit_upload():
     try:
+        # Block 1: Opens database session, gets json data from request, saves to data
         db = get_db()
         data = request.get_json()
 
+        # Block 2: new upload object created 
         upload = Upload(
             filename=data.get('filename', 'manual_upload'),
-            user_id=current_user.id,  # ✅ this is required
+            user_id=current_user.id,  #  this is required
             created_at=datetime.utcnow()
         )
+        # Block 3: object assigned to the database session but not commit yet
         db.add(upload)
         db.flush()
         
         new_items, duplicates = 0, 0
-        new_tnx = data.get('new', [])
+        new_tnx = data.get('new', []) #list of new transactions
 
         for item in new_tnx:
             amount = parse_amount(item.get('amount'))
@@ -111,7 +114,7 @@ def edit_upload():
                 category=item.get('category', 'Uncategorized'),
                 date=parsed_date,
                 credit_type=item.get('credit_type'),
-                user_id=current_user.id,   # ✅ Fix for current error
+                user_id=current_user.id,   # Fix for current error
                 #upload_id=upload.id # here we use the upload ID from the upload object to associate the transaction
             )
 
@@ -127,43 +130,6 @@ def edit_upload():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     
-@upload_bp.route('/test-upload', methods=['GET', 'POST'])
-def test_upload_no_auth():
-    if request.method == 'POST':
-        file = request.files.get('pdf_file')
-        if not file:
-            return "No file selected", 400
-
-        filename = secure_filename(file.filename)
-        pdf_path = os.path.join(UPLOAD_FOLDER, filename)
-        file.save(pdf_path)
-
-        extracted_text = extract_text_from_pdf(pdf_path)
-        base_name = os.path.splitext(filename)[0]
-        txt_path = os.path.join(EXTRACTED_FOLDER, f"{base_name}.txt")
-        with open(txt_path, 'w') as f:
-            f.write(extracted_text)
-
-        prompt = build_prompt(extracted_text)
-        gpt_response = send_to_chatgpt(prompt, user_id=1)  # dummy user ID for testing
-
-        unique_categories = sorted(list({item.get('category', 'Uncategorized') for item in gpt_response}))
-        timestamp = datetime.utcnow().strftime('%Y%m%d%H%M%S')
-        gpt_filename = f"{base_name}_{timestamp}.json"
-        gpt_path = os.path.join(GPT_OUTPUT_FOLDER, gpt_filename)
-        with open(gpt_path, 'w') as f:
-            json.dump(gpt_response, f, indent=2)
-
-        return render_template('main/upload.html',
-                               active_page='upload',
-                               extracted_json=gpt_response,
-                               gpt_filename=gpt_filename,
-                               filename=filename,
-                               categories=unique_categories,
-                               test_mode=True)
-
-    # GET request
-    return render_template('main/upload.html', active_page='upload', categories=[])
 
     
 

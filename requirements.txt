@@ -21,3 +21,4 @@ Flask-Testing
 webdriver-manager==4.0.1      # Valid package for Selenium drivers
 pytest==8.2.0                 # Valid testing framework
 selenium
+reportlab

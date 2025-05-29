@@ -15,6 +15,7 @@ from io import StringIO
 import csv 
 
 def build_filtered_query(db, user, params):
+    # Block 1: Initial query/Filter for the current user
     query = db.query(Transaction).filter(Transaction.user_id == user.id)
 
     # If filtering by another owner (i.e., shared data)
@@ -31,6 +32,7 @@ def build_filtered_query(db, user, params):
         query = db.query(Transaction).filter(Transaction.user_id == shared_report.owner_id)
         params = shared_report.filter_params  # override filters with shared ones
 
+    # Block 2: Apply filters based on the request parameters
     from_date = params.get('from')
     to_date = params.get('to')
     category = params.get('category')
@@ -38,6 +40,7 @@ def build_filtered_query(db, user, params):
     amount_filter = params.get('amount_filter')
     description_keyword = params.get('description')
 
+    # Block 3: Apply filters to the query
     if from_date and to_date:
         try:
             start = date_parser.parse(from_date).date()

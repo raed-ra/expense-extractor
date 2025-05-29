@@ -407,3 +407,4 @@ gpt_outputs/
 
 # Add your database file here
 expensemanager.db
+tests/test_files/real_statement.pdf

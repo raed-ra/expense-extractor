@@ -1,3 +1,5 @@
+# /models/shared_view.py
+
 from sqlalchemy import Column, Integer, DateTime, Boolean, ForeignKey
 from db import Base
 from datetime import datetime
